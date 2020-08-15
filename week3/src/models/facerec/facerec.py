@@ -19,7 +19,7 @@ class FaceRecognition:
         return (faceDetector, landmarkDetector)
 
     @staticmethod
-    def downloadArtifacts(self):
+    def downloadArtifacts():
         urls = [
             ("model", "http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2"),
             ("model", "http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2"),
@@ -36,7 +36,7 @@ class FaceRecognition:
 
     def _checkHumanFaces(self, image):
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + self._haarcascade_frontalface_default)
+        faceCascade = cv2.CascadeClassifier(self._haarcascade_frontalface_default)
         faces = faceCascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=3, minSize=(70, 70))
         return faces
 
@@ -118,15 +118,22 @@ class FaceRecognition:
         output = cv2.seamlessClone(np.uint8(dest_img_warped), dest_face_img, dest_mask, center, cv2.NORMAL_CLONE)
         return output[:, :, ::-1]
 
-    def faceSwap(self, src_face_img, dest_face_img, points_slice=None):
+    def faceSwap(self, src_face_img: np.ndarray, dest_face_img: np.ndarray, points_slice: slice = None):
         if self.hasValidHumanFace(src_face_img) and self.hasValidHumanFace(dest_face_img):
             src_points, dest_points = self.detect_landmarks(src_face_img, dest_face_img)
             src_hull, dest_hull, hull8U = self.get_convex_hull(src_points, dest_points, points_slice)
             dest_img_warped = self.calculate_delaunay_triangles(src_face_img, dest_face_img, src_hull, dest_hull)
             transformed_img = self.do_seamless_clone(dest_face_img, dest_img_warped, hull8U)
-            return transformed_img
+            # https://stackoverflow.com/questions/26778079/valueerror-ndarray-is-not-c-contiguous-in-cython
+            return transformed_img.copy(order="C")
         else:
-            raise Exception("No human face detected in the image")
+            raise ValueError("No human face detected in the image")
 
-    def faceMask(self, src_face_img, dest_face_img):
+    def faceMask(self, src_face_img: np.ndarray, dest_face_img: np.ndarray):
         return self.faceSwap(src_face_img, dest_face_img, slice(1, 16, None))
+
+    def alignFace(self, src_face_img: np.ndarray):
+        if self.hasValidHumanFace(src_face_img):
+            return src_face_img.copy(order="C")
+        else:
+            raise ValueError("No human face detected in the image")

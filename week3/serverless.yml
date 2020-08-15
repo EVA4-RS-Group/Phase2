@@ -163,6 +163,15 @@ functions:
                   path: face_swap
                   method: post
                   cors: true
+    face_mask:
+        handler: handler.face_mask
+        memorySize: 3008
+        timeout: 60
+        events:
+            - http:
+                  path: face_mask
+                  method: post
+                  cors: true
     align_face:
         handler: handler.align_face
         memorySize: 3008
