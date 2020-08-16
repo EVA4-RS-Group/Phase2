@@ -89,7 +89,6 @@ package:
         - test/**
         - __pycache__/**
         - .pytest_cache/**
-        - model/**
         - test/**
         - .venv/**
         - .vscode/**
@@ -173,12 +172,12 @@ functions:
                   method: post
                   cors: true
     align_face:
-        handler: handler.align_face
+        handler: handler.face_align
         memorySize: 3008
         timeout: 60
         events:
             - http:
-                  path: align_face
+                  path: face_align
                   method: post
                   cors: true
 plugins:

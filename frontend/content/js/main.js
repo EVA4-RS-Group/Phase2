@@ -51,8 +51,10 @@
 
   var url = {
     "week1": "https://jzworltk54.execute-api.ap-south-1.amazonaws.com/dev/classify",
-    "week2": "https://jzworltk54.execute-api.ap-south-1.amazonaws.com/dev/classify",
-    "face_swap": "https://zuav5qg7sc.execute-api.ap-south-1.amazonaws.com/dev/face_swap"
+    "week2": "https://3g8t28a24d.execute-api.ap-south-1.amazonaws.com/dev/classify",
+    "face_swap": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
+    "face_mask": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_mask",
+    "face_align": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_align",
   };
 
   // Utils
@@ -85,30 +87,6 @@
     return classify("week2")
   });
 
-  $("#faceSwap").click(function(){
-    var documentData = new FormData();
-    $.each($('input#getFile')[0].files,function(i, file){
-      documentData.append("files["+i+"]", file)
-    });
-    $.ajax({
-      url: url["face_swap"],
-      type: 'POST',
-      data: documentData,
-      async: false,
-      cache: false,
-      contentType: false,
-      processData: false,
-      timeout:5000,
-      success: function (response) {
-          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
-          $("#file1").attr('src', 'data:image/png;base64,'+ response["file1"][1])
-      },
-      error: function(e) {
-        alert(e.responseText)
-      }
-  });
-  })
-
   function classify(url_key) {
     var documentData = new FormData();
 
@@ -127,11 +105,80 @@
             $("#imgClass").text(response.predicted)
         },
         error: function(e) {
-          alert(e.responseText)
+          alert(e.statusText)
         }
     });
     return false;
   }
+
+  $("#faceSwap").click(function(){
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
+    $.ajax({
+      url: url["face_swap"],
+      type: 'POST',
+      data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
+
+  $("#faceAlign").click(function(){
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
+    $.ajax({
+      url: url["face_align"],
+      type: 'POST',
+      data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
+
+  $("#faceMask").click(function(){
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
+    $.ajax({
+      url: url["face_mask"],
+      type: 'POST',
+      data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
 
   // Display error messages.
   function onError(error) {

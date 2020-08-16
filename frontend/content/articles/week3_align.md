@@ -1,17 +1,17 @@
-Title: Week3 Face Swap
-date: 2020-08-15
+Title: Week3 Face Alignment
+date: 2020-08-16
 Javascripts: main.js
 
-The task is to upload a src and dest image and swap the dest image with src image
+The task is to align the face properly from which ever orientation it is in.
 
   <section>
     <div class="row gtr-uniform">
       <div class="col-3 col-12-xsmall">
         <ul class="actions">
-          <li><input id="getFile" type="file" accept="image/jpg" name="files[]" multiple/></li>
+          <li><input id="getFile" type="file" accept="image/jpg" name="files"/></li>
         </ul>
         <ul class="actions">
-          <li><input id="faceSwap" type="button" value="Face Swap"/></li>
+          <li><input id="faceAlign" type="button" value="Align Face"/></li>
         </ul>
       </div>
       <div class="col-6 col-12-xsmall">

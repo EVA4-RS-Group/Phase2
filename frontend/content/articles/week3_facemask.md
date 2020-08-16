@@ -1,17 +1,17 @@
-Title: Week3 Face Swap
+Title: Week3 Face Mask
 date: 2020-08-15
 Javascripts: main.js
 
-The task is to upload a src and dest image and swap the dest image with src image
+The task is to get an N95 mask on the photo of a person
 
   <section>
     <div class="row gtr-uniform">
       <div class="col-3 col-12-xsmall">
         <ul class="actions">
-          <li><input id="getFile" type="file" accept="image/jpg" name="files[]" multiple/></li>
+          <li><input id="getFile" type="file" accept="image/jpg" name="files"/></li>
         </ul>
         <ul class="actions">
-          <li><input id="faceSwap" type="button" value="Face Swap"/></li>
+          <li><input id="faceMask" type="button" value="Face Mask"/></li>
         </ul>
       </div>
       <div class="col-6 col-12-xsmall">
