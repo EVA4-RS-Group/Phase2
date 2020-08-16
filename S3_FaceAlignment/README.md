@@ -20,7 +20,7 @@
     - MobileNet Example from [Session 2](https://github.com/EVA4-RS-Group/Phase2/tree/master/S2_mobilenet_v2_custom_dataset)
     - FaceAlignment & FaceSwap application - putting mask, Details are covered in Developer Section.
 - Website results (Week 1)
-    - <img src="results/week1.png" alt="Week1" width="200"/>
+    - <img src="results/week1.png" alt="Week1" width="400"/>
 
 
 ### **Key Highlights**
