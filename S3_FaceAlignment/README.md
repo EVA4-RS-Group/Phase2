@@ -26,12 +26,6 @@
     - <img src="results/week3_face_align.png" alt="Week 3 Face align" height="400"/><img src="results/week3_face_mask.png" alt="Face Mask" height="400"/><img src="results/week3_face_swap.png" alt="Face Swap" height="400"/>
 
 
-### **Key Highlights**
-- Website hosting (#Ramjee, Please highlight key things in website hos)
-- Face Alignment (#Roshan, please highlight)
-- Face Swap, Mask 
-
-
 ## 2. Steps (Developer Section)
 - Website Hosting (#Ramjee, Detailed steps)
 - Face Alignment (#Roshan, Detailed Steps)
