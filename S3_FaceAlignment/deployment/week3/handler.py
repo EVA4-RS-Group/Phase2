@@ -11,6 +11,7 @@ from src.libs import utils
 from src.libs.logger import logger
 from src.models.facerec.facerec import FaceRecognition
 
+
 headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -60,6 +61,7 @@ def face_align(event, context):
             "body": json.dumps({"error": repr(ve)}),
         }
     except Exception as e:
+        logger.exception(e)
         return {
             "statusCode": 500,
             "headers": headers,
