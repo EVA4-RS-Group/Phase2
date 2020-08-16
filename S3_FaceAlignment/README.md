@@ -22,13 +22,20 @@
 
 
 ### **Key Highlights**
-- Website hosting (#Ramjee, Please highlight key things in website hos)
+- Website hosting: We use [pelican](https://blog.getpelican.com/) a static site generator written in python. Each of the assignments is then article/blog post.
 - Face Alignment (#Roshan, please highlight)
 - Face Swap, Mask 
+- Deployment: Got two github actions one for [deploying the website](https://github.com/EVA4-RS-Group/Phase2/actions?query=workflow%3A%22Frontend+Deploy%22) and the other for [deploying to the lambda](https://github.com/gantir/eva4-2/actions?query=workflow%3A%22EVA4+Phase2+Week3%22). The actions get triggered when code is commited to master branch
+
 
 
 ## 2. Steps (Developer Section)
-- Website Hosting (#Ramjee, Detailed steps)
+- Website Hosting
+  - Used Pelican static site generator for python.
+  - URL of website: http://rsgroup.s3-website.ap-south-1.amazonaws.com/
+  - Created a theme based on [html5up](https://html5up.net/uploads/demos/phantom/)
+  - Created 5 articles: Week1, Week2, Week3 FaceSwap, Week3 FaceMask, Week3 FaceAlign
+  - Wrote javascript to upload image and use the same to call the Lambda inference API
 - Face Alignment (#Roshan, Detailed Steps)
 - Face Swap, Mask [EVA4_Phase2_S3_FaceMask.ipynb](EVA4_Phase2_S3_FaceMask.ipynb)
 
