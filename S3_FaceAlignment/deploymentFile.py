@@ -214,26 +214,26 @@ def TestFaceMask():
 #               Image alignment 
 #################################################################
 def alignImage(image):
-  # Landmark model location
-  MODELPATH = "/content/model/"
-  PREDICTOR_PATH = MODELPATH + "shape_predictor_5_face_landmarks.dat"
-  # Get the face detector
-  faceDetector = dlib.get_frontal_face_detector()
-  # The landmark detector is implemented in the shape_predictor class
-  landmarkDetector = dlib.shape_predictor(PREDICTOR_PATH)
-  # Read image
-  # Detect landmarks
-  points = fbc.getLandmarks(faceDetector, landmarkDetector, image)
-  points = np.array(points)
-  # Convert image to floating point in the range 0 to 1
-  image = np.float32(image)/255.0
-  # Dimension of output image
-  h = 600
-  w = 600
-  # Normalize image to output co-orindates
-  imNorm, points = fbc.normalizeImagesAndLandmarks((h,w), image, points)
-  imNorm = np.uint8(imNorm*255)
-  return imNorm[:,:,::-1]
+    # Landmark model location
+    MODELPATH = "/content/model/"
+    PREDICTOR_PATH = MODELPATH + "shape_predictor_5_face_landmarks.dat"
+    # Get the face detector
+    faceDetector = dlib.get_frontal_face_detector()
+    # The landmark detector is implemented in the shape_predictor class
+    landmarkDetector = dlib.shape_predictor(PREDICTOR_PATH)
+    # Read image
+    # Detect landmarks
+    points = fbc.getLandmarks(faceDetector, landmarkDetector, image)
+    points = np.array(points)
+    # Convert image to floating point in the range 0 to 1
+    image = np.float32(image)/255.0
+    # Dimension of output image
+    h = 600
+    w = 600
+    # Normalize image to output co-orindates
+    imNorm, points = fbc.normalizeImagesAndLandmarks((h,w), image, points)
+    imNorm = np.uint8(imNorm*255)
+    return imNorm[:,:,::-1]
 
 def testImgAlignment():
     im = cv2.imread("/content/data/images/face2.jpg")
