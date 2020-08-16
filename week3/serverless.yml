@@ -171,7 +171,7 @@ functions:
                   path: face_mask
                   method: post
                   cors: true
-    align_face:
+    face_align:
         handler: handler.face_align
         memorySize: 3008
         timeout: 60
