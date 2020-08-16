@@ -14,9 +14,8 @@ class FaceRecognition:
         self._init_objects()
 
     def _init_objects(self):
-        faceDetector = dlib.get_frontal_face_detector()
-        landmarkDetector = dlib.shape_predictor(self._shape_predictor_68_face_landamarks)
-        return (faceDetector, landmarkDetector)
+        self.faceDetector = dlib.get_frontal_face_detector()
+        self.landmarkDetector = dlib.shape_predictor(self._shape_predictor_68_face_landamarks)
 
     @staticmethod
     def downloadArtifacts():
@@ -46,12 +45,6 @@ class FaceRecognition:
             return True
         else:
             return False
-
-    def detect_landmarks(self, src_face_img, dest_face_img):
-        detector, predictor = self._init_objects()
-        src_points = fbc.getLandmarks(detector, predictor, src_face_img)
-        dest_points = fbc.getLandmarks(detector, predictor, dest_face_img)
-        return src_points, dest_points
 
     def get_convex_hull(self, src_landmark_points, dest_landmark_points, points_slice=None):
         # 2. Find convex hull
@@ -120,7 +113,9 @@ class FaceRecognition:
 
     def faceSwap(self, src_face_img: np.ndarray, dest_face_img: np.ndarray, points_slice: slice = None):
         if self.hasValidHumanFace(src_face_img) and self.hasValidHumanFace(dest_face_img):
-            src_points, dest_points = self.detect_landmarks(src_face_img, dest_face_img)
+            src_points = fbc.getLandmarks(self.faceDetector, self.landmarkDetector, src_face_img)
+            dest_points = fbc.getLandmarks(self.faceDetector, self.landmarkDetector, dest_face_img)
+
             src_hull, dest_hull, hull8U = self.get_convex_hull(src_points, dest_points, points_slice)
             dest_img_warped = self.calculate_delaunay_triangles(src_face_img, dest_face_img, src_hull, dest_hull)
             transformed_img = self.do_seamless_clone(dest_face_img, dest_img_warped, hull8U)
@@ -134,6 +129,17 @@ class FaceRecognition:
 
     def alignFace(self, src_face_img: np.ndarray):
         if self.hasValidHumanFace(src_face_img):
-            return src_face_img.copy(order="C")
+            src_points = fbc.getLandmarks(self.faceDetector, self.landmarkDetector, src_face_img)
+            points = np.array(src_points)
+            # Convert image to floating point in the range 0 to 1
+            src_face_img = np.float32(src_face_img) / 255.0
+            # Dimension of output image
+            h = 600
+            w = 600
+            # Normalize image to output co-orindates
+            imNorm, points = fbc.normalizeImagesAndLandmarks((h, w), src_face_img, points)
+            imNorm = np.uint8(imNorm * 255)
+            align_face_img = imNorm[:, :, ::-1]
+            return align_face_img.copy(order="C")
         else:
             raise ValueError("No human face detected in the image")
