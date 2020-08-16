@@ -22,8 +22,8 @@
 - Website results
     - <img src="results/week1.png" alt="Week1" height="400"/>
     - <img src="results/week2_1.png" alt="Week2_1" height="300"/><img src="results/week2_2.png" alt="Week2_2" height="300"/>
-    - <img src="results/week2_3.png" alt="Week2_3" height="300"/><img src="results/week2_4.png" alt="Week2_4" height="300"/>week3_face_align
-    - <img src="results/week3_face_align.png" alt="Week 3 Face align" width="300"/><img src="results/week3_face_mask.png" alt="Face Swap" width="300"/>
+    - <img src="results/week2_3.png" alt="Week2_3" height="300"/><img src="results/week2_4.png" alt="Week2_4" height="300"/>
+    - <img src="results/week3_face_align.png" alt="Week 3 Face align" height="300"/><img src="results/week3_face_mask.png" alt="Face Mask" height="300"/><img src="results/week3_face_swap.png" alt="Face Swap" height="300"/>
 
 
 ### **Key Highlights**
