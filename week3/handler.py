@@ -42,7 +42,7 @@ def hello(event, context):
 
 def face_align(event, context):
     try:
-        picture = utils.get_images_from_event(event, max_files=1)[0]
+        picture, picturename = utils.get_images_from_event(event, max_files=1)[0]
         picture_ndarray = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
 
         f = FaceRecognition()
