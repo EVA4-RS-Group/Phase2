@@ -19,8 +19,9 @@
     - Resnet imagenet from [Session 1](https://github.com/EVA4-RS-Group/Phase2/tree/master/S1_aws_lambda_mobilenet_v2)
     - MobileNet Example from [Session 2](https://github.com/EVA4-RS-Group/Phase2/tree/master/S2_mobilenet_v2_custom_dataset)
     - FaceAlignment & FaceSwap application - putting mask, Details are covered in Developer Section.
-- Website results (Week 1)
+- Website results
     - <img src="results/week1.png" alt="Week1" width="400"/>
+    - <img src="results/week2.png" alt="Week2" width="400"/>
 
 
 ### **Key Highlights**
