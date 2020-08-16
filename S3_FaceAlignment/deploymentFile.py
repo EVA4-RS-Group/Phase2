@@ -15,6 +15,10 @@ isValidImage Requirements:
 
 faceMask Requirements
 Mask image : https://github.com/EVA4-RS-Group/Phase2/releases/download/s2/3M-KN95-9501-Dust-Mask_v1.jpg
+
+Image Alignment:
+!wget http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2
+!bzip2 -dk shape_predictor_5_face_landmarks.dat.bz2
 '''
 
 def isValidImage(image):
@@ -204,3 +208,36 @@ def TestFaceMask():
     plt.subplot((142))
     plt.imshow(faceMask(img1)[1])
     plt.axis('off');
+
+    
+#################################################################
+#               Image alignment 
+#################################################################
+def alignImage(image):
+    # Landmark model location
+    MODELPATH = "/content/model/"
+    PREDICTOR_PATH = MODELPATH + "shape_predictor_5_face_landmarks.dat"
+    # Get the face detector
+    faceDetector = dlib.get_frontal_face_detector()
+    # The landmark detector is implemented in the shape_predictor class
+    landmarkDetector = dlib.shape_predictor(PREDICTOR_PATH)
+    # Read image
+    # Detect landmarks
+    points = fbc.getLandmarks(faceDetector, landmarkDetector, image)
+    points = np.array(points)
+    # Convert image to floating point in the range 0 to 1
+    image = np.float32(image)/255.0
+    # Dimension of output image
+    h = 600
+    w = 600
+    # Normalize image to output co-orindates
+    imNorm, points = fbc.normalizeImagesAndLandmarks((h,w), image, points)
+    imNorm = np.uint8(imNorm*255)
+    return imNorm[:,:,::-1]
+
+def testImgAlignment():
+    im = cv2.imread("/content/data/images/face2.jpg")
+    plt.imshow(alignImage(im))
+    plt.title("Aligned Image")
+    plt.axis("off")
+    plt.show()
