@@ -44,7 +44,7 @@
 - Face Swap, Mask [EVA4_Phase2_S3_FaceMask.ipynb](EVA4_Phase2_S3_FaceMask.ipynb)
     - Using DLIB face detection and 68 points landmark detection
     - Face mask intermediate results
-    - [Results](results/week3_face_mask_intermediate.jpg)
+    - ![Results](results/week3_face_mask_intermediate.jpg)
 
 
 ## 3. References
