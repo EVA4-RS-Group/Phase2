@@ -2,7 +2,7 @@ Title: Week3 Face Swap
 date: 2020-08-15
 Javascripts: main.js
 
-The task is to upload a src and dest image and swap the dest image with src image
+The task is to upload a src and dest image and swap the dest image with src image. Please note you will have to upload two images
 
   <section>
     <div class="row gtr-uniform">
