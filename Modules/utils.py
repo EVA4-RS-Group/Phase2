@@ -41,11 +41,11 @@ def ShowMissclassifiedImages(model, data, class_id, device,dataType='val', num_i
                       return
         model.train(mode=was_training)
 
-def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images=12,save_as="misclassified.jpg"):
+def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images=6,save_as="misclassified.jpg"):
     dataloaders, class_names = data.dataloaders, data.class_names
     was_training = model.training
     model.eval()
-    images_so_far = 5
+    images_so_far = 0
     fig, axs = plt.subplots(int(num_images/4),4,figsize=(12,4))
     with torch.no_grad():
         for i, (inputs, labels) in enumerate(dataloaders[dataType]):
