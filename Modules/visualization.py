@@ -93,7 +93,7 @@ def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
                 npimg = np.clip(np.transpose(img,(1,2,0)), 0, 1)
                 ax = figure.add_subplot(5, 7, images_so_far, xticks=[], yticks=[])
                 ax.imshow(npimg, cmap='gray')
-                ax.set_title('predicted:\n{}'.format(class_names[preds[j]]),fontsize=12)
+                ax.set_title('{}'.format(class_names[preds[j]]),fontsize=12)
 
                 if images_so_far == num_images:
                     model.train(mode=was_training)
@@ -101,6 +101,7 @@ def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
                     return
         model.train(mode=was_training)
     figure.tight_layout()  
+    plt.title("Predicted Label",fontsize=16)
     plt.show()
 
 def imshow(inp, title=None):
