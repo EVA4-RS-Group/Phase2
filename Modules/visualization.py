@@ -103,6 +103,7 @@ def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
     figure.tight_layout()  
     #plt.title("Predicted Label",fontsize=16)
     figure.suptitle("Predicted Label",fontsize=16)
+    figure.subplots_adjust(top=0.88)
     plt.show()
 
 def imshow(inp, title=None):
