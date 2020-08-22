@@ -14,6 +14,85 @@ import glob
 import csv
 import random
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+
+## Section for face recognition
+data_transforms_face_recog = {
+    'train': transforms.Compose([
+        transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ]),
+    'val': transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ]),
+}
+
+class LoadFaceDataset():
+    """
+    A class to dataset with its loader.
+
+    ...
+
+    Attributes
+    ----------
+    dataloaders : torch dataloader
+    dataset_sizes : length of train and validation dataset
+    class_names : class names
+
+    Methods
+    -------
+    show_batch:
+        Shows five sample images for verification of dataloaders
+    """
+
+    def __init__(self, data_dir, batch_size):
+        """Initialize the class object.
+
+        Dataset class ojbect
+        """
+        self.data_dir = data_dir
+        self.batch_size = batch_size
+
+        self.image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
+                               data_transforms_face_recog[x]) for x in ['train', 'val']}
+
+        self.dataloaders = {x: torch.utils.data.DataLoader(self.image_datasets[x],
+                                                           batch_size=self.batch_size, shuffle=True, num_workers=4) for x in ['train', 'val']}
+
+        self.dataset_sizes = {x: len(self.image_datasets[x]) for x in ['train','val']}
+
+        self.class_names = self.image_datasets['train'].classes
+        print(self.class_names)
+
+    def show_batch(self, save_as="sample.jpg"):
+        """Show five sample images for verification of dataloaders.
+
+        Get item internal fuction
+        """
+        # Get a batch of training data
+        inputs, classes = next(iter(self.dataloaders['train']))
+        images = denormalize(inputs,mean=(0.5404, 0.5918, 0.6219),std=(0.2771, 0.2576, 0.2998)).cpu().numpy()
+
+        counter=0
+        fig = plt.figure(figsize=(15, 10))
+
+        while(counter<5):
+            ax = fig.add_subplot(1, 5, counter+1, xticks=[], yticks=[])
+            img = images[counter]
+            npimg = np.clip(np.transpose(img,(1,2,0)), 0, 1)
+            ax.imshow(npimg, cmap='gray')
+            ax.set_title(f'{self.class_names[classes[counter]]}', color= "blue",fontsize=16)
+            counter+=1
+        fig.tight_layout()  
+        plt.show()
+        fig.savefig(save_as)
+        #imshow_save(out, save_as="sample.jpg",title=[class_names[int(x)] for x in classes[0:4]])
+
+## Section for drone dataset
 
 data_transforms = {
     'train': transforms.Compose([
@@ -215,5 +294,4 @@ class LoadDataset():
         plt.show()
         fig.savefig(save_as)
         #imshow_save(out, save_as="sample.jpg",title=[class_names[int(x)] for x in classes[0:4]])
-
 
