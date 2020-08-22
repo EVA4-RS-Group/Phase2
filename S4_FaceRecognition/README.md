@@ -27,20 +27,13 @@
 
 
 ## 2. Steps (Developer Section)
-- Website Hosting
-  - Used Pelican static site generator for python.
-  - URL of website: http://rsgroup.s3-website.ap-south-1.amazonaws.com/
-  - Created a theme based on [html5up](https://html5up.net/uploads/demos/phantom/)
-  - Created 5 articles: Week1, Week2, Week3 FaceSwap, Week3 FaceMask, Week3 FaceAlign
-  - Wrote javascript to upload image and use the same to call the Lambda inference API
-- Face Alignment (#Roshan, Detailed Steps)
-- Face Swap, Mask [EVA4_Phase2_S3_FaceMask.ipynb](EVA4_Phase2_S3_FaceMask.ipynb)
-    - Using DLIB face detection and 68 points landmark detection
-    - Face mask intermediate results
-    - <img src="results/week3_face_mask_intermediate.png" alt="Week 3 Face align"/>
+- Dataset Curation
+- Face Alignment 
+- Face Recognition model training
 
 
 ## 3. References
 
+1. [Finetune a Facial Recognition Classifier to Recognize your Face using PyTorch](https://towardsdatascience.com/finetune-a-facial-recognition-classifier-to-recognize-your-face-using-pytorch-d00a639d9a79)
 1. [Hosting AWS static website](https://docs.aws.amazon.com/AmazonS3/latest/dev/HostingWebsiteOnS3Setup.html)
 2. [EVA4 Phase2 Session3, Face Recognition Part 1](https://theschoolof.ai/)
