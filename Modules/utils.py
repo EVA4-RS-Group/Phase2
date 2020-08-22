@@ -67,11 +67,11 @@ def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images
                   imagex = np.clip(imagex, 0, 1)  
                   ax = fig.add_subplot(1, 6, col, xticks=[], yticks=[])     
                   ax.imshow(imagex)
-                  fig.tight_layout(pad=2.0)
                   ax.set_title('Predicted: {} \n Actual: {}'.format(class_names[preds[j]],class_names[labels[j]]))
                   images_so_far += 1
                   if images_so_far == num_images:
                       model.train(mode=was_training)
+                      fig.tight_layout(pad=2.0)
                       plt.show()
                       fig.savefig(save_as)
                       return
