@@ -74,7 +74,7 @@ def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
     model.eval()
     images_so_far = 0
     figure = plt.figure(figsize=(15, 15))
-    num_images=49
+    num_images=35
 
     with torch.no_grad():
         for i, (inputs, labels) in enumerate(dataloaders['val']):
@@ -91,7 +91,7 @@ def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
                 
                 img = inputs[j]
                 npimg = np.clip(np.transpose(img,(1,2,0)), 0, 1)
-                ax = figure.add_subplot(7, 7, images_so_far, xticks=[], yticks=[])
+                ax = figure.add_subplot(5, 7, images_so_far, xticks=[], yticks=[])
                 ax.imshow(npimg, cmap='gray')
                 ax.set_title('predicted:\n{}'.format(class_names[preds[j]]),fontsize=12)
 
