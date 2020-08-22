@@ -46,7 +46,7 @@ def ShowCustomDataFaces_plot(model, data, class_id, device,dataType='val', num_i
     was_training = model.training
     model.eval()
     images_so_far = 0
-    fig = plt.figure(figsize=(12, 6))
+    fig = plt.figure(figsize=(8, 4))
     with torch.no_grad():
         for i, (inputs, labels) in enumerate(dataloaders[dataType]):
             inputs = inputs.to(device)
