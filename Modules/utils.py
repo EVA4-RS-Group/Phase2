@@ -46,7 +46,7 @@ def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images
     was_training = model.training
     model.eval()
     images_so_far = 0
-    fig, axs = plt.subplots(1,6,figsize=(12,4))
+    fig = plt.figure(figsize=(12, 4))
     with torch.no_grad():
         for i, (inputs, labels) in enumerate(dataloaders[dataType]):
             inputs = inputs.to(device)
@@ -57,18 +57,18 @@ def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images
             for j in range(inputs.size()[0]):
                 if labels[j] == class_id:
                   row = 0
-                  col = images_so_far
+                  col = images_so_far+1
                   imagex = inputs.cpu().data[j]
                   imagex = np.transpose(imagex, (1, 2, 0))
                   imagex=imagex.numpy()
                   mean = np.array([0.485, 0.456, 0.406])
                   std = np.array([0.229, 0.224, 0.225])
                   imagex = std*imagex  + mean
-                  imagex = np.clip(imagex, 0, 1)       
-                  axs[row,col].imshow(imagex)
-                  axs[row,col].axis('off')
+                  imagex = np.clip(imagex, 0, 1)  
+                  ax = fig.add_subplot(1, 6, col, xticks=[], yticks=[])     
+                  ax.imshow(imagex)
                   fig.tight_layout(pad=2.0)
-                  axs[row,col].set_title('Predicted: {} \n Actual: {}'.format(class_names[preds[j]],class_names[labels[j]]))
+                  ax.set_title('Predicted: {} \n Actual: {}'.format(class_names[preds[j]],class_names[labels[j]]))
                   images_so_far += 1
                   if images_so_far == num_images:
                       model.train(mode=was_training)
