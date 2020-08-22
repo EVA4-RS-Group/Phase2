@@ -85,7 +85,7 @@ class LoadFaceDataset():
             img = images[counter]
             npimg = np.clip(np.transpose(img,(1,2,0)), 0, 1)
             ax.imshow(npimg, cmap='gray')
-            ax.set_title(f'{self.class_names[classes[counter]]}', color= "blue",fontsize=16)
+            ax.set_title(f'{self.class_names[classes[counter]]}', color= "blue",fontsize=14)
             counter+=1
         fig.tight_layout()  
         plt.show()
