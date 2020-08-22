@@ -73,7 +73,7 @@ def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
     was_training = model.training
     model.eval()
     images_so_far = 0
-    figure = plt.figure(figsize=(15, 15))
+    figure = plt.figure(figsize=(15, 12))
     num_images=35
 
     with torch.no_grad():
@@ -101,7 +101,8 @@ def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
                     return
         model.train(mode=was_training)
     figure.tight_layout()  
-    plt.title("Predicted Label",fontsize=16)
+    #plt.title("Predicted Label",fontsize=16)
+    plt.suptitle("Predicted Label",fontsize=16)
     plt.show()
 
 def imshow(inp, title=None):
