@@ -78,10 +78,10 @@ class LoadFaceDataset():
         images = denormalize(inputs,mean=(0.5404, 0.5918, 0.6219),std=(0.2771, 0.2576, 0.2998)).cpu().numpy()
 
         counter=0
-        fig = plt.figure(figsize=(15, 10))
+        fig = plt.figure(figsize=(15, 8))
 
-        while(counter<5):
-            ax = fig.add_subplot(1, 5, counter+1, xticks=[], yticks=[])
+        while(counter<7):
+            ax = fig.add_subplot(1, 7, counter+1, xticks=[], yticks=[])
             img = images[counter]
             npimg = np.clip(np.transpose(img,(1,2,0)), 0, 1)
             ax.imshow(npimg, cmap='gray')
