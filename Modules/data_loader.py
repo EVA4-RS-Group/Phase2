@@ -75,7 +75,7 @@ class LoadFaceDataset():
         """
         # Get a batch of training data
         inputs, classes = next(iter(self.dataloaders['train']))
-        images = denormalize(inputs,mean=(0.5404, 0.5918, 0.6219),std=(0.2771, 0.2576, 0.2998)).cpu().numpy()
+        images = denormalize(inputs,mean=(0.485, 0.456, 0.406),std=(0.229, 0.224, 0.225)).cpu().numpy()
 
         counter=0
         fig = plt.figure(figsize=(15, 8))

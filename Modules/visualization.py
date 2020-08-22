@@ -68,6 +68,41 @@ def visualize_model(model, data, device, save_as="visualize.jpg"):
     figure.tight_layout()  
     plt.show()
 
+def visualize_face_recog_model(model, data, device, save_as="visualize.jpg"):
+    dataloaders, class_names = data.dataloaders, data.class_names
+    was_training = model.training
+    model.eval()
+    images_so_far = 0
+    figure = plt.figure(figsize=(15, 10))
+    num_images=5
+
+    with torch.no_grad():
+        for i, (inputs, labels) in enumerate(dataloaders['val']):
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+
+            outputs = model(inputs)
+            _, preds = torch.max(outputs, 1)
+
+            inputs = denormalize(inputs,mean=(0.485, 0.456, 0.406),std=(0.229, 0.224, 0.225)).cpu().numpy()
+
+            for j in range(inputs.shape[0]):
+                images_so_far += 1
+                
+                img = inputs[j]
+                npimg = np.clip(np.transpose(img,(1,2,0)), 0, 1)
+                ax = figure.add_subplot(1, 5, images_so_far, xticks=[], yticks=[])
+                ax.imshow(npimg, cmap='gray')
+                ax.set_title('predicted:\n{}'.format(class_names[preds[j]]),fontsize=14)
+
+                if images_so_far == num_images:
+                    model.train(mode=was_training)
+                    figure.savefig(save_as)
+                    return
+        model.train(mode=was_training)
+    figure.tight_layout()  
+    plt.show()
+
 def imshow(inp, title=None):
     """Imshow for Tensor."""
     inp = inp.numpy().transpose((1, 2, 0))
