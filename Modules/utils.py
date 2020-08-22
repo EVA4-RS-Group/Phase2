@@ -56,8 +56,8 @@ def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images
               
             for j in range(inputs.size()[0]):
                 if labels[j] == class_id:
-                  row = 1
-                  col = images_so_far+1
+                  row = 0
+                  col = images_so_far
                   imagex = inputs.cpu().data[j]
                   imagex = np.transpose(imagex, (1, 2, 0))
                   imagex=imagex.numpy()
