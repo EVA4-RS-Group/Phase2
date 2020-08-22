@@ -37,12 +37,5 @@
 
 1. [Finetune a Facial Recognition Classifier to Recognize your Face using PyTorch](https://towardsdatascience.com/finetune-a-facial-recognition-classifier-to-recognize-your-face-using-pytorch-d00a639d9a79)
 2. [Labeled Faces in the Wild](http://vis-www.cs.umass.edu/lfw/)
-@InProceedings{Huang2012a,
-  author =    {Gary B. Huang and Marwan Mattar and Honglak Lee and 
-               Erik Learned-Miller},
-  title =     {Learning to Align from Scratch},
-  booktitle = {NIPS},
-  year =      {2012}
-}
 3. [Hosting AWS static website](https://docs.aws.amazon.com/AmazonS3/latest/dev/HostingWebsiteOnS3Setup.html)
 4. [EVA4 Phase2 Session3, Face Recognition Part 1](https://theschoolof.ai/)
