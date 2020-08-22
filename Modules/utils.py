@@ -41,7 +41,7 @@ def ShowMissclassifiedImages(model, data, class_id, device,dataType='val', num_i
                       return
         model.train(mode=was_training)
 
-def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images=6,save_as="misclassified.jpg"):
+def ShowCustomDataFaces_plot(model, data, class_id, device,dataType='val', num_images=6,save_as="misclassified.jpg"):
     dataloaders, class_names = data.dataloaders, data.class_names
     was_training = model.training
     model.eval()
@@ -76,3 +76,25 @@ def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images
                       fig.savefig(save_as)
                       return
         model.train(mode=was_training)
+
+def ShowCustomDataFaces(model, data, device,dataType='val', num_images=6):
+    print("------------  Prediction on Validation set of Images for Aishwarya Rai -------------------")
+    ShowCustomDataFaces_plot(model, data,0, device,dataType,save_as="Predictions_AishwaryaRai.jpg")
+    print("------------  Prediction on Validation set of Images for Elon Musk -------------------")
+    ShowCustomDataFaces_plot(model, data,14, device,dataType,save_as="Predictions_ElonMusk.jpg")
+    print("------------  Prediction on Validation set of Images for Mahendra Singh Dhoni -------------------")
+    ShowCustomDataFaces_plot(model, data,43, device,dataType,save_as="Predictions_MahendraSinghDhoni.jpg")
+    print("------------  Prediction on Validation set of Images for Malala Yousafzai -------------------")
+    ShowCustomDataFaces_plot(model, data,45, device,dataType,save_as="Predictions_MalalaYousafzai.jpg")
+    print("------------  Prediction on Validation set of Images for Narendra Modi -------------------")
+    ShowCustomDataFaces_plot(model, data,49, device,dataType,save_as="Predictions_NarendraModi.jpg")
+    print("------------  Prediction on Validation set of Images for Priyanka Chopra -------------------")
+    ShowCustomDataFaces_plot(model, data,53, device,dataType,save_as="Predictions_PriyankaChopra.jpg")
+    print("------------  Prediction on Validation set of Images for Rahul Gandhi -------------------")
+    ShowCustomDataFaces_plot(model, data,54, device,dataType,save_as="Predictions_RahulGandhi.jpg")
+    print("------------  Prediction on Validation set of Images for Sachin Tendulkar -------------------")
+    ShowCustomDataFaces_plot(model, data,59, device,dataType,save_as="Predictions_SachinTendulkar.jpg")
+    print("------------  Prediction on Validation set of Images for Shahrukh Khan -------------------")
+    ShowCustomDataFaces_plot(model, data,62, device,dataType,save_as="Predictions_ShahrukhKhan.jpg")
+    print("------------  Prediction on Validation set of Images for Shreya Ghoshal -------------------")
+    ShowCustomDataFaces_plot(model, data,63, device,dataType,save_as="Predictions_ShreyaGhoshal.jpg")
