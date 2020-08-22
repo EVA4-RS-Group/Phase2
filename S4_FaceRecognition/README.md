@@ -20,9 +20,9 @@
 
 ### **Key Highlights**
 - Training Dataset Curation
-- Face Alignment (#Roshan, please highlight)
-- Face Swap, Mask: We developed a face swap application which will put mask on image with single face. It utilizes landmarks below eye portion to develop a convex hull. Then it swaps this portion with image having N95 mask.
-- Deployment: Got two github actions one for [deploying the website](https://github.com/EVA4-RS-Group/Phase2/actions?query=workflow%3A%22Frontend+Deploy%22) and the other for [deploying to the lambda](https://github.com/gantir/eva4-2/actions?query=workflow%3A%22EVA4+Phase2+Week3%22). The actions get triggered when code is committed to master branch
+- Face Alignment 
+- Face Recognition
+- Deployment
 
 
 
@@ -30,6 +30,7 @@
 - Dataset Curation
 - Face Alignment 
 - Face Recognition model training
+- Deployment
 
 
 ## 3. References
