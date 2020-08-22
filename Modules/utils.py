@@ -46,7 +46,7 @@ def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images
     was_training = model.training
     model.eval()
     images_so_far = 0
-    fig = plt.figure(figsize=(15, 12))
+    fig = plt.figure(figsize=(12, 4))
     with torch.no_grad():
         for i, (inputs, labels) in enumerate(dataloaders[dataType]):
             inputs = inputs.to(device)
@@ -71,7 +71,7 @@ def ShowCustomDataFaces(model, data, class_id, device,dataType='val', num_images
                   images_so_far += 1
                   if images_so_far == num_images:
                       model.train(mode=was_training)
-                      fig.tight_layout(pad=2.0)
+                      fig.tight_layout()
                       plt.show()
                       fig.savefig(save_as)
                       return
