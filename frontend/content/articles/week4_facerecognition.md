@@ -2,7 +2,7 @@ Title: Week4 Face Recognition
 date: 2020-08-22
 Javascripts: main.js
 
-The task is to face recognition from 10 known celebrities - Aishwarya Rai, Elon Musk, Mahendra Singh Dhoni, Malala Yousafzai, Narendra Modi, Priyanka Chopra, Rahul Gandhi, Sachin Tendulkar, Shahrukh Khan, Shreya Ghoshal.
+The task is to recognize face from 10 known celebrities - Aishwarya Rai, Elon Musk, Mahendra Singh Dhoni, Malala Yousafzai, Narendra Modi, Priyanka Chopra, Rahul Gandhi, Sachin Tendulkar, Shahrukh Khan, Shreya Ghoshal.
 
   <section>
     <div class="row gtr-uniform">
