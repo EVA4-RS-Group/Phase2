@@ -1,4 +1,4 @@
-# Session 3 - Face Recognition & AWS static Website
+# Session 4 - Face Recognition Part II, 10 Celebrities/Politician
 
 
 ## 1. Executive Summary
@@ -6,27 +6,20 @@
 
 ### **Objectives**:
 
-- Upload html and js files to your S3 bucket and create a policy using which the html file can be accessed by anyone. The HTML file should contain:
-    1. ResNet Example (as shared in the code above)
-    2. MobileNet Example (trained on your dataset)
-    3. Face Alignment Feature (as shared above)
-        - Bonus 1000 points additional from 3000 for this assignment if you implement Face Swap.
-- Create a Face Alignment App on Lambda (code is shared above), where if someone uploads a face (you check that by using dlib face detector), you return aligned face. Image with more than 1 face is not processed for alignment.
-- Share the link to your S3 html file that can be accessed by anyone. Also share the link to your GitHub repo for the code (please remember to always remove the keys, secrect_keys, etc from your code before uploading to GitHub. How?)
+- Refer to this beautiful [blog](https://towardsdatascience.com/finetune-a-facial-recognition-classifier-to-recognize-your-face-using-pytorch-d00a639d9a79). 
+- Collect 10 facial images of 10 people you know (stars, politicians, etc). The more the images you collect, the better your experience would be. Add it to this [LFW](http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz) dataset. 
+- Train as in the blog and upload the FR model to Lambda
+- Share the link to "that" single page. 
+- Share the link to GitHub repo. 
 
 ### **Results**:
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
-    - Resnet imagenet from [Session 1](https://github.com/EVA4-RS-Group/Phase2/tree/master/S1_aws_lambda_mobilenet_v2)
-    - MobileNet Example from [Session 2](https://github.com/EVA4-RS-Group/Phase2/tree/master/S2_mobilenet_v2_custom_dataset)
-    - FaceAlignment & FaceSwap application - putting mask, Details are covered in Developer Section.
 - Website results
     - <img src="results/week1.png" alt="Week1" height="200"/>
-    - <img src="results/week2_1.png" alt="Week2_1" height="200"/><img src="results/week2_2.png" alt="Week2_2" height="200"/>
-    - <img src="results/week2_3.png" alt="Week2_3" height="200"/><img src="results/week2_4.png" alt="Week2_4" height="200"/>
-    - <img src="results/week3_face_align.png" alt="Week 3 Face align" height="400"/><img src="results/week3_face_mask.png" alt="Face Mask" height="400"/><img src="results/week3_face_swap.png" alt="Face Swap" height="400"/>
+
 
 ### **Key Highlights**
-- Website hosting: We use [pelican](https://blog.getpelican.com/) a static site generator written in python. Each of the assignments is then article/blog post.
+- Training Dataset Curation
 - Face Alignment (#Roshan, please highlight)
 - Face Swap, Mask: We developed a face swap application which will put mask on image with single face. It utilizes landmarks below eye portion to develop a convex hull. Then it swaps this portion with image having N95 mask.
 - Deployment: Got two github actions one for [deploying the website](https://github.com/EVA4-RS-Group/Phase2/actions?query=workflow%3A%22Frontend+Deploy%22) and the other for [deploying to the lambda](https://github.com/gantir/eva4-2/actions?query=workflow%3A%22EVA4+Phase2+Week3%22). The actions get triggered when code is committed to master branch
