@@ -14,28 +14,31 @@
 
 ### **Results**:
 - Curated dataset consisting of 10 known people
-    -  Aishwarya Rai, Elon Musk, Mahendra Singh Dhoni, Malala Yousafzai, Narendra Modi, Priyanka Chopra, Rahul Gandhi, Sachin Tendulkar, Shahrukh Khan, Shreya Ghoshal. 
+    -  **Aishwarya Rai, Elon Musk, Mahendra Singh Dhoni, Malala Yousafzai, Narendra Modi, Priyanka Chopra, Rahul Gandhi, Sachin Tendulkar, Shahrukh Khan, Shreya Ghoshal.**
     - Added LFW dataset with classess more than 20 images. Additional classes around 62. 
     - Processed all images to align the face and create train/val dataset. [EVA4_S4_preprocessing_face_alignment_v1.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_S4_preprocessing_face_alignment_v1.ipynb)
 - Trained inception_resnet model using transfer learning for face recognition of classess (10 - custom dataset, 62 - LFW). [EVA4_P2_S4_Face_Recognition_v2.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_P2_S4_Face_Recognition_v2.ipynb)
-    - Model performance, Training accuracy = 99.91% and Validation accuracy = 99.50%
+    - Model performance, Training accuracy = **99.91%** and Validation accuracy = **99.50%**
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
     - <img src="results/week1.png" alt="Week1" height="200"/>
 
 
 ### **Key Highlights**
-- Training Dataset Curation, [EVA4_S4_preprocessing_face_alignment_v1.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_S4_preprocessing_face_alignment_v1.ipynb)
-    - Custom data curation
-    - Face Alignment 
+- Training Dataset Curation
+    - Total number of classess = 72, Total images = 3366
+    - Face aligned and cropped to 160x160 pixel 
 - Face Recognition Model Training
+    - Transfer learning from inception_resnet_v1 with "vggface2" pretrained weights. Only last 5 layers trained.
+    - OneCycle Policy : Trained the network in 10 epochs
+    - Modularized code 
 - Deployment
+    - ??
 
 
 
 ## 2. Steps (Developer Section)
-- Dataset Curation
-- Face Alignment 
+- Dataset Curation & Preprocessing - Face Alignment and Cropping [EVA4_P2_S4_Face_Recognition_v2.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_P2_S4_Face_Recognition_v2.ipynb)
 - Face Recognition model training
 - Deployment
 
