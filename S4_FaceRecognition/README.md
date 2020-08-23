@@ -39,6 +39,12 @@
 
 ## 2. Steps (Developer Section)
 - Dataset Curation & Preprocessing - Face Alignment and Cropping [EVA4_P2_S4_Face_Recognition_v2.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_P2_S4_Face_Recognition_v2.ipynb)
+    - Curated custom dataset manually by searching through google with closeup views. It consist of 10 different celebrities with 20 images each. [Raw dataset](https://github.com/EVA4-RS-Group/Phase2/releases/download/S4/Data_v1.zip)
+    - Combined the custom dataset with [LFW](http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz) dataset. Filtered LFW dataset with classess having 20 or more images.
+    - Face Alignment based on [Session 3](https://github.com/EVA4-RS-Group/Phase2/tree/master/S3_FaceAlignment) and resized to 160x160 pixel sizes.
+        - <img src="results/FaceAlignment_customdataset.png" alt="Custom Dataset" height="150"/>
+        - <img src="results/FaceAlignment_LFW.png" alt="Custom Dataset" height="150"/>
+    - Split the dataset into 70:30 ratio for training and validation.
 - Face Recognition model training
 - Deployment
 
