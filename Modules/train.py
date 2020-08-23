@@ -14,7 +14,13 @@ def train_face_recog_model(model,data, device, criterion, optimizer, scheduler, 
     dataloaders, dataset_sizes = data.dataloaders, data.dataset_sizes
 
     since = time.time()
+
     FT_losses = []
+    trainLoss = [ ]
+    trainAccu = [ ]
+    valLoss = [ ]
+    valAccu = [ ]
+
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
     for epoch in range(num_epochs):
@@ -54,6 +60,15 @@ def train_face_recog_model(model,data, device, criterion, optimizer, scheduler, 
             epoch_acc = running_corrects.double() /dataset_sizes[phase]
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
+
+            # Data for plot
+            if phase == 'train':
+                trainLoss.append(epoch_loss)
+                trainAccu.append(epoch_acc)
+            else:
+                valLoss.append(epoch_loss)
+                valAccu.append(epoch_acc)
+
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
@@ -62,9 +77,12 @@ def train_face_recog_model(model,data, device, criterion, optimizer, scheduler, 
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
+
+    plotData = {'trainLoss' : trainLoss, 'trainAccu' : trainAccu, 'valLoss' : valLoss,'valAccu' : valAccu }
+
     # load best model weights
     model.load_state_dict(best_model_wts)
-    return model, FT_losses
+    return model, FT_losses, plotData
 
 def train_model(model,data, device, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
