@@ -13,15 +13,22 @@
 - Share the link to GitHub repo. 
 
 ### **Results**:
+- Curated dataset consisting of 10 known people
+    -  Aishwarya Rai, Elon Musk, Mahendra Singh Dhoni, Malala Yousafzai, Narendra Modi, Priyanka Chopra, Rahul Gandhi, Sachin Tendulkar, Shahrukh Khan, Shreya Ghoshal. 
+    - Added LFW dataset with classess more than 20 images. Additional classes around 62. 
+    - Processed all images to align the face and create train/val dataset. [EVA4_S4_preprocessing_face_alignment_v1.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_S4_preprocessing_face_alignment_v1.ipynb)
+- Trained inception_resnet model using transfer learning for face recognition of classess (10 - custom dataset, 62 - LFW). [EVA4_P2_S4_Face_Recognition_v2.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_P2_S4_Face_Recognition_v2.ipynb)
+    - Model performance, Training accuracy = 99.91% and Validation accuracy = 99.50%
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
     - <img src="results/week1.png" alt="Week1" height="200"/>
 
 
 ### **Key Highlights**
-- Training Dataset Curation
-- Face Alignment 
-- Face Recognition
+- Training Dataset Curation, [EVA4_S4_preprocessing_face_alignment_v1.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_S4_preprocessing_face_alignment_v1.ipynb)
+    - Custom data curation
+    - Face Alignment 
+- Face Recognition Model Training
 - Deployment
 
 
