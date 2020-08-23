@@ -384,7 +384,7 @@ docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sp
 testing = ["coverage (>=5)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "pytest-xdist (>=1.31.0)", "packaging (>=20.0)", "xonsh (>=0.9.16)"]
 
 [metadata]
-content-hash = "5ab8b3092ab2b60dbb49351d959aa0646c9e586f8ad418776dc6bc1cdc51c495"
+content-hash = "4ec5ef714665db6d1e6ecb2772ac63d19ce9235e2f06d32fd11b5b7dfae32bcc"
 lock-version = "1.0"
 python-versions = "^3.8"
 
