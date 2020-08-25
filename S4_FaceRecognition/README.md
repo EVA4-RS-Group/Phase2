@@ -22,7 +22,10 @@
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
     - <img src="results/Aishwarya_Rai_website.png" alt="Aishwarya_Rai" height="300"/><img src="results/Elon_Musk_website.png" alt="Elon_Musk" height="300"/>
-
+    - <img src="results/Mahendra_Singh_Dhoni_website.png" alt="Mahendra_Singh_Dhoni" height="300"/><img src="results/Malala_Yousafzai_website.png" alt="Malala_Yousafzai" height="300"/>
+    - <img src="results/Narendra_Modi_website.png" alt="Narendra_Modi" height="300"/><img src="results/Priyanka_Chopra_website.png" alt="Priyanka_Chopra" height="300"/>
+    - <img src="results/Rahul_Gandhi_website.png" alt="Rahul_Gandhi" height="300"/><img src="results/Sachin_Tendulkar_website.png" alt="Sachin_Tendulkar" height="300"/>
+    - <img src="results/Shahrukh_Khan_website.png" alt="Shahrukh_Khan" height="300"/><img src="results/Shreya_Ghoshal_website.png" alt="Shreya_Ghoshal" height="300"/>
 
 ### **Key Highlights**
 - Training Dataset Curation
@@ -33,7 +36,7 @@
     - OneCycle Policy : Trained the network in 10 epochs
     - Modularized code 
 - Deployment
-    - ??
+    - AWS Lambda deployment: To manage the zip requirement < 150mb,face recognition calls the face alignment api to get the images uploaded aligned and resized before sending to model.
 
 
 
