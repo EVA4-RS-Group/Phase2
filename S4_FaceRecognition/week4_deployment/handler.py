@@ -49,7 +49,7 @@ def _face_align(picture, picture_name):
         m = MultipartEncoder(fields={"files[0]": (picture_name, picture.content, "image/jpeg")})
 
         response = requests.post(
-            face_align_url, data=base64.b64encode(m.read()).decode("utf-8"), headers={"content-type": m.content_type}
+            face_align_url, data=m, headers={"content-type": m.content_type}
         )
         if response.status_code == requests.codes.ok:
             return json.loads(response.text)["file0"][1]
