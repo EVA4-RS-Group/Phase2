@@ -55,7 +55,7 @@
     "face_swap": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
     "face_mask": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_mask",
     "face_align": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_align",
-    "face_recog": "https://kz20qrtk80.execute-api.ap-south-1.amazonaws.com/dev/face_rec",
+    "face_recog": "https://qeqn72vc9d.execute-api.ap-south-1.amazonaws.com/dev/face_rec",
   };
 
   // Utils
