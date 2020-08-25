@@ -21,7 +21,7 @@
     - Model performance, Training accuracy = **99.91%** and Validation accuracy = **99.50%**
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-    - <img src="results/week1.png" alt="Week1" height="200"/>
+    - <img src="results/Aishwarya_Rai_website.png" alt="Aishwarya_Rai" height="300"/><img src="results/Elon_Musk_website.png" alt="Elon_Musk" height="300"/>
 
 
 ### **Key Highlights**
