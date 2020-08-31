@@ -2,7 +2,7 @@ import torch
 from PIL import Image
 
 from torchvision import transforms
-from src.pose_resnet import *
+from pose_resnet import *
 
 
 class HPEInference():
