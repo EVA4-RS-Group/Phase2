@@ -10,36 +10,36 @@ import matplotlib.pyplot as plt
 get_detached = lambda x: copy.deepcopy(x.cpu().detach().numpy())
 get_keypoints = lambda pose_layers: map(itemgetter(1, 3), [cv2.minMaxLoc(pose_layer) for pose_layer in pose_layers])
 
+JOINTS = ['r-ankle', 'r-knee', 'r-hip', 'l-hip',
+        'l-knee', 'l-ankle', 'pelvis', 'thorax',
+        'upper-neck', 'head-top', 'r-wrist', 'r-elbow',
+        'r-shoulder', 'l-shoulder', 'l-elbow', 'l-wrist']
+
+POSE_PAIRS = [
+# UPPER BODY
+            [9, 8],
+            [8, 7],
+            [7, 6],
+# LOWER BODY
+            [6, 2],
+            [2, 1],
+            [1, 0],
+
+            [6, 3],
+            [3, 4],
+            [4, 5],
+# ARMS
+            [7, 12],
+            [12, 11],
+            [11, 10],
+            [7, 13],
+            [13, 14],
+            [14, 15]
+]
+
 class HPEInference():
     """ Docstring
     """
-
-    JOINTS = ['r-ankle', 'r-knee', 'r-hip', 'l-hip',
-            'l-knee', 'l-ankle', 'pelvis', 'thorax',
-            'upper-neck', 'head-top', 'r-wrist', 'r-elbow',
-            'r-shoulder', 'l-shoulder', 'l-elbow', 'l-wrist']
-
-    POSE_PAIRS = [
-    # UPPER BODY
-                [9, 8],
-                [8, 7],
-                [7, 6],
-    # LOWER BODY
-                [6, 2],
-                [2, 1],
-                [1, 0],
-
-                [6, 3],
-                [3, 4],
-                [4, 5],
-    # ARMS
-                [7, 12],
-                [12, 11],
-                [11, 10],
-                [7, 13],
-                [13, 14],
-                [14, 15]
-    ]
 
     def __init__(self,cfg):
 
