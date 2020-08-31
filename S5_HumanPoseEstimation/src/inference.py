@@ -20,11 +20,10 @@ class HPEInference():
         self.output = None
 
     def gen_output(self,img):
-        tr_img = transform(img)
-        output = self.model(tr_img.unsqueeze(0))
-        output = output.squeeze(0)
-        _, OUT_HEIGHT, OUT_WIDTH = output.shape
-        output.shape
-        print(output.shape)
+        tr_img = self.transform(img)
+        self.output = self.model(tr_img.unsqueeze(0))
+        self.output = self.output.squeeze(0)
+        _, OUT_HEIGHT, OUT_WIDTH = self.output.shape
+        print(self.output.shape)
 
-        return output
+        return self.output
