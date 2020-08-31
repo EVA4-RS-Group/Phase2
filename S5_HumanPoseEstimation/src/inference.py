@@ -2,13 +2,13 @@ import torch
 from PIL import Image
 
 from torchvision import transforms
-from pose_resnet import *
+from pose_resnet import get_pose_net
 
 
 class HPEInference():
     def __init__(self,cfg):
 
-        self.model = eval('get_pose_net')(cfg, is_train=False)
+        self.model = get_pose_net(cfg, is_train=False)
         self.model.load_state_dict(torch.load(cfg.TEST.MODEL_FILE, map_location=torch.device('cpu')))
         self.image_size = cfg.MODEL.IMAGE_SIZE
 
