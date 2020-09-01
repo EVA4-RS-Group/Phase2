@@ -99,7 +99,7 @@ class HPEInference():
             from_thr, (from_x_j, from_y_j) = key_points[from_j]
             to_thr, (to_x_j, to_y_j) = key_points[to_j]
 
-            IMG_HEIGHT, IMG_WIDTH = image_p.shape
+            IMG_HEIGHT, IMG_WIDTH, _ = image_p.shape
 
             from_x_j, to_x_j = from_x_j * IMG_WIDTH / OUT_SHAPE[0], to_x_j * IMG_WIDTH / OUT_SHAPE[0]
             from_y_j, to_y_j = from_y_j * IMG_HEIGHT / OUT_SHAPE[1], to_y_j * IMG_HEIGHT / OUT_SHAPE[1]
