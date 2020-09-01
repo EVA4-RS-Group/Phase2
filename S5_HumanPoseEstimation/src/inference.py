@@ -6,6 +6,8 @@ from .pose_resnet import *
 from operator import itemgetter
 import copy
 import matplotlib.pyplot as plt
+import cv2
+import numpy as np
 
 get_detached = lambda x: copy.deepcopy(x.cpu().detach().numpy())
 get_keypoints = lambda pose_layers: map(itemgetter(1, 3), [cv2.minMaxLoc(pose_layer) for pose_layer in pose_layers])
@@ -79,3 +81,42 @@ class HPEInference():
             plt.imshow(pose_layer, alpha=0.5, cmap='jet', interpolation='bicubic')
             plt.axis('off')
         plt.show()
+
+    def vis_pose(self,img,threshold = 0.5):
+
+        if self.output is None:
+            self.gen_output(img)
+
+        THRESHOLD = threshold
+        OUT_SHAPE = (self.OUT_HEIGHT, self.OUT_WIDTH)
+        image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        pose_layers = get_detached(x=output)
+        key_points = list(get_keypoints(pose_layers=pose_layers))
+        is_joint_plotted = [False for i in range(len(JOINTS))]
+        for pose_pair in POSE_PAIRS:
+            from_j, to_j = pose_pair
+
+            from_thr, (from_x_j, from_y_j) = key_points[from_j]
+            to_thr, (to_x_j, to_y_j) = key_points[to_j]
+
+            IMG_HEIGHT, IMG_WIDTH = self.IMAGE_SIZE
+
+            from_x_j, to_x_j = from_x_j * IMG_WIDTH / OUT_SHAPE[0], to_x_j * IMG_WIDTH / OUT_SHAPE[0]
+            from_y_j, to_y_j = from_y_j * IMG_HEIGHT / OUT_SHAPE[1], to_y_j * IMG_HEIGHT / OUT_SHAPE[1]
+
+            from_x_j, to_x_j = int(from_x_j), int(to_x_j)
+            from_y_j, to_y_j = int(from_y_j), int(to_y_j)
+
+            if from_thr > THRESHOLD and not is_joint_plotted[from_j]:
+                # this is a joint
+                cv2.ellipse(image_p, (from_x_j, from_y_j), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
+                is_joint_plotted[from_j] = True
+
+            if to_thr > THRESHOLD and not is_joint_plotted[to_j]:
+                # this is a joint
+                cv2.ellipse(image_p, (to_x_j, to_y_j), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
+                is_joint_plotted[to_j] = True
+
+            if from_thr > THRESHOLD and to_thr > THRESHOLD:
+                # this is a joint connection, plot a line
+                cv2.line(image_p, (from_x_j, from_y_j), (to_x_j, to_y_j), (255, 74, 0), 3)
