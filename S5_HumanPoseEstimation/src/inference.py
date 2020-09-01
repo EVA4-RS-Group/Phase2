@@ -56,24 +56,22 @@ class HPEInference():
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
             ])
-        self.output = None
 
     def gen_output(self,img):
         tr_img = self.transform(img)
-        self.output = self.model(tr_img.unsqueeze(0))
-        self.output = self.output.squeeze(0)
-        _, OUT_HEIGHT, OUT_WIDTH = self.output.shape
-        print(self.output.shape)
+        output = self.model(tr_img.unsqueeze(0))
+        output = output.squeeze(0)
+        _, OUT_HEIGHT, OUT_WIDTH = output.shape
+        print(output.shape)
 
-        return self.output
+        return output
 
     def heat_map(self,img):
         plt.figure(figsize=(15, 15))
 
-        if self.output is None:
-            self.gen_output(img)
+        output = self.gen_output(img)
 
-        for idx, pose_layer in enumerate(get_detached(self.output)):
+        for idx, pose_layer in enumerate(get_detached(output)):
             # print(pose_layer.shape)
             plt.subplot(4, 4, idx + 1)
             plt.title(f'{idx} - {JOINTS[idx]}')
@@ -84,13 +82,12 @@ class HPEInference():
 
     def vis_pose(self,img,threshold = 0.5):
 
-        if self.output is None:
-            self.gen_output(img)
+        output = self.gen_output(img)
 
         THRESHOLD = threshold
         OUT_SHAPE = (self.OUT_HEIGHT, self.OUT_WIDTH)
         image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        pose_layers = get_detached(x=self.output)
+        pose_layers = get_detached(x=output)
         key_points = list(get_keypoints(pose_layers=pose_layers))
         is_joint_plotted = [False for i in range(len(JOINTS))]
         for pose_pair in POSE_PAIRS:
