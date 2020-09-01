@@ -1,14 +1,14 @@
-import torch
+#import torch
 from PIL import Image
 
 from torchvision import transforms
-from .pose_resnet import *
 from operator import itemgetter
 import copy
 import matplotlib.pyplot as plt
 import cv2
 import numpy as np
 import time
+import onnxruntime
 
 get_detached = lambda x: copy.deepcopy(x.cpu().detach().numpy())
 get_keypoints = lambda pose_layers: map(itemgetter(1, 3), [cv2.minMaxLoc(pose_layer) for pose_layer in pose_layers])
@@ -40,17 +40,19 @@ POSE_PAIRS = [
             [14, 15]
 ]
 
-class HPEInference():
+def to_numpy(tensor):
+    return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
+
+class HPEInference_onnx():
     """ Docstring
     """
 
-    def __init__(self,cfg):
+    def __init__(self,model_name):
 
-        self.model = get_pose_net(cfg, is_train=False)
-        self.model.load_state_dict(torch.load(cfg.TEST.MODEL_FILE, map_location=torch.device('cpu')))
-        self.IMAGE_SIZE = cfg.MODEL.IMAGE_SIZE
+        self.ort_session = onnxruntime.InferenceSession(model_name)
+        self.IMAGE_SIZE = [256,256]
 
-        self.OUT_WIDTH,self.OUT_HEIGHT = cfg.MODEL.EXTRA.HEATMAP_SIZE
+        self.OUT_WIDTH,self.OUT_HEIGHT = 64,64
 
         self.transform = transforms.Compose([
             transforms.Resize(self.IMAGE_SIZE),
@@ -60,31 +62,14 @@ class HPEInference():
 
     def gen_output(self,img):
         tr_img = self.transform(img)
-        output = self.model(tr_img.unsqueeze(0))
-        output = output.squeeze(0)
-        _, OUT_HEIGHT, OUT_WIDTH = output.shape
-        print(output.shape)
+        # compute ONNX Runtime output prediction
+        ort_inputs = {self.ort_session.get_inputs()[0].name: to_numpy(tr_img.unsqueeze(0))}
+        ort_outs = self.ort_session.run(None, ort_inputs)
 
-        return output
+        print(np.array(ort_outs).shape)
+        ort_outs = np.array(ort_outs[0][0])
 
-    def heat_map(self,img):
-        since = time.time()
-        plt.figure(figsize=(15, 15))
-
-        output = self.gen_output(img)
-
-        for idx, pose_layer in enumerate(get_detached(output)):
-            # print(pose_layer.shape)
-            plt.subplot(4, 4, idx + 1)
-            plt.title(f'{idx} - {JOINTS[idx]}')
-            plt.imshow(img.resize((self.OUT_WIDTH, self.OUT_HEIGHT)), cmap='gray', interpolation='bicubic')
-            plt.imshow(pose_layer, alpha=0.5, cmap='jet', interpolation='bicubic')
-            plt.axis('off')
-        plt.show()
-
-        time_elapsed = time.time() - since
-        print('Inference complete in {:.0f}m {:.0f}s'.format(
-        time_elapsed // 60, time_elapsed % 60))
+        return ort_outs
 
     def vis_pose(self,img,threshold = 0.5):
         since = time.time()
@@ -94,7 +79,7 @@ class HPEInference():
         THRESHOLD = threshold
         OUT_SHAPE = (self.OUT_HEIGHT, self.OUT_WIDTH)
         image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        pose_layers = get_detached(x=output)
+        pose_layers = output
         key_points = list(get_keypoints(pose_layers=pose_layers))
         is_joint_plotted = [False for i in range(len(JOINTS))]
         for pose_pair in POSE_PAIRS:
@@ -130,33 +115,6 @@ class HPEInference():
         time_elapsed // 60, time_elapsed % 60))
 
         return Image.fromarray(cv2.cvtColor(image_p, cv2.COLOR_RGB2BGR))
-
-    def export_onnx_model(self, model_name = "simple_pose_estimation.onnx",quantization = False):
-        torch_model = copy.deepcopy(self.model)
-        batch_size = 1
-        rand_inp = torch.randn(batch_size, 3, *self.IMAGE_SIZE, requires_grad=True)
-
-        # Export the model
-        torch.onnx.export(torch_model,               # model being run
-                        rand_inp,                    # model input (or a tuple for multiple inputs)
-                        model_name,   # where to save the model (can be a file or file-like object)
-                        export_params=True,        # store the trained parameter weights inside the model file
-                        opset_version=10,          # the ONNX version to export the model to
-                        do_constant_folding=True,  # whether to execute constant folding for optimization
-                        input_names = ['input'],   # the model's input names
-                        output_names = ['output'], # the model's output names
-                        dynamic_axes={'input' : {0 : 'batch_size'},    # variable lenght axes
-                                      'output' : {0 : 'batch_size'}})
-        
-        if quantization:
-            import onnx
-            from onnxruntime.quantization import quantize
-            
-            onnx_model = onnx.load(model_name)
-            quantized_model = quantize(onnx_model)
-            onnx.save(quantized_model, model_name.replace(".onnx",".8bit_quantized.onnx"))
-            
-
 
 
 
