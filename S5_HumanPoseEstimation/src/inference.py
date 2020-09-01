@@ -136,4 +136,16 @@ class HPEInference():
                         output_names = ['output'], # the model's output names
                         dynamic_axes={'input' : {0 : 'batch_size'},    # variable lenght axes
                                       'output' : {0 : 'batch_size'}})
+        
+        if quantization:
+            import onnx
+            from onnxruntime.quantization import quantize
+            
+            onnx_model = onnx.load(model_name)
+            quantized_model = quantize(onnx_model)
+            onnx.save(quantized_model, model.replace(".onnx",".8bit_quantized.onnx"))
+            
+
+
+
 
