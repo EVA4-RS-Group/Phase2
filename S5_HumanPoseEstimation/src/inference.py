@@ -93,6 +93,11 @@ class HPEInference():
 
         THRESHOLD = threshold
         OUT_SHAPE = (self.OUT_HEIGHT, self.OUT_WIDTH)
+        IMG_HEIGHT, IMG_WIDTH, _ = image_p.shape
+
+        scale_x = IMG_WIDTH / OUT_SHAPE[0]
+        scale_y = IMG_HEIGHT / OUT_SHAPE[1]
+
         image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         pose_layers = get_detached(x=output)
         key_points = list(get_keypoints(pose_layers=pose_layers))
@@ -103,13 +108,8 @@ class HPEInference():
             from_thr, (from_x_j, from_y_j) = key_points[from_j]
             to_thr, (to_x_j, to_y_j) = key_points[to_j]
 
-            IMG_HEIGHT, IMG_WIDTH, _ = image_p.shape
-
-            from_x_j, to_x_j = from_x_j * IMG_WIDTH / OUT_SHAPE[0], to_x_j * IMG_WIDTH / OUT_SHAPE[0]
-            from_y_j, to_y_j = from_y_j * IMG_HEIGHT / OUT_SHAPE[1], to_y_j * IMG_HEIGHT / OUT_SHAPE[1]
-
-            from_x_j, to_x_j = int(from_x_j), int(to_x_j)
-            from_y_j, to_y_j = int(from_y_j), int(to_y_j)
+            from_x_j, to_x_j = int(from_x_j * scale_x), int(to_x_j * scale_x)
+            from_y_j, to_y_j = int(from_y_j * scale_y), int(to_y_j * scale_y)
 
             if from_thr > THRESHOLD and not is_joint_plotted[from_j]:
                 # this is a joint
