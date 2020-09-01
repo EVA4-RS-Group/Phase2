@@ -119,3 +119,21 @@ class HPEInference():
                 cv2.line(image_p, (from_x_j, from_y_j), (to_x_j, to_y_j), (255, 74, 0), 3)
 
         return Image.fromarray(cv2.cvtColor(image_p, cv2.COLOR_RGB2BGR))
+
+    def export_onnx_model(self, model_name = "simple_pose_estimation.onnx",quantization = False):
+        torch_model = copy.deepcopy(self.model)
+        batch_size = 1
+        rand_inp = torch.randn(batch_size, 3, *self.IMAGE_SIZE, requires_grad=True)
+
+        # Export the model
+        torch.onnx.export(torch_model,               # model being run
+                        rand_inp,                    # model input (or a tuple for multiple inputs)
+                        model_name,   # where to save the model (can be a file or file-like object)
+                        export_params=True,        # store the trained parameter weights inside the model file
+                        opset_version=10,          # the ONNX version to export the model to
+                        do_constant_folding=True,  # whether to execute constant folding for optimization
+                        input_names = ['input'],   # the model's input names
+                        output_names = ['output'], # the model's output names
+                        dynamic_axes={'input' : {0 : 'batch_size'},    # variable lenght axes
+                                      'output' : {0 : 'batch_size'}})
+
