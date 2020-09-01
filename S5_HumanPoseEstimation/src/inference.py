@@ -143,7 +143,7 @@ class HPEInference():
             
             onnx_model = onnx.load(model_name)
             quantized_model = quantize(onnx_model)
-            onnx.save(quantized_model, model.replace(".onnx",".8bit_quantized.onnx"))
+            onnx.save(quantized_model, model_name.replace(".onnx",".8bit_quantized.onnx"))
             
 
 
