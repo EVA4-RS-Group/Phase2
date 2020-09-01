@@ -83,8 +83,8 @@ class HPEInference():
         plt.show()
 
         time_elapsed = time.time() - since
-        print('Inference complete in {:.0f}m {:.0f}s'.format(
-        time_elapsed // 60, time_elapsed % 60))
+        print('Inference complete in {:4.2f}ms'.format(
+        time_elapsed*1000))
 
     def vis_pose(self,img,threshold = 0.5):
         since = time.time()
@@ -126,8 +126,8 @@ class HPEInference():
                 cv2.line(image_p, (from_x_j, from_y_j), (to_x_j, to_y_j), (255, 74, 0), 3)
 
         time_elapsed = time.time() - since
-        print('Inference complete in {:.0f}m {:.0f}s'.format(
-        time_elapsed // 60, time_elapsed % 60))
+        print('Inference complete in {:4.2f}ms'.format(
+        time_elapsed*1000))
 
         return Image.fromarray(cv2.cvtColor(image_p, cv2.COLOR_RGB2BGR))
 
