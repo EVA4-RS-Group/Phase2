@@ -121,4 +121,4 @@ class HPEInference():
                 # this is a joint connection, plot a line
                 cv2.line(image_p, (from_x_j, from_y_j), (to_x_j, to_y_j), (255, 74, 0), 3)
 
-        Image.fromarray(cv2.cvtColor(image_p, cv2.COLOR_RGB2BGR))
+        return Image.fromarray(cv2.cvtColor(image_p, cv2.COLOR_RGB2BGR))
