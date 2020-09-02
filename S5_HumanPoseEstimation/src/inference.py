@@ -22,7 +22,8 @@ POSE_PAIRS = [
 # UPPER BODY
             [9, 8],
             [8, 7],
-            [7, 6],
+            [7, 3],
+            [7, 2],
 # LOWER BODY
             [6, 2],
             [2, 1],
@@ -32,10 +33,10 @@ POSE_PAIRS = [
             [3, 4],
             [4, 5],
 # ARMS
-            [7, 12],
+            [8, 12],
             [12, 11],
             [11, 10],
-            [7, 13],
+            [8, 13],
             [13, 14],
             [14, 15]
 ]
@@ -100,7 +101,7 @@ class HPEInference():
 
         scale_x = IMG_WIDTH / OUT_SHAPE[0]
         scale_y = IMG_HEIGHT / OUT_SHAPE[1]
-        
+
         pose_layers = get_detached(x=output)
         key_points = list(get_keypoints(pose_layers=pose_layers))
         is_joint_plotted = [False for i in range(len(JOINTS))]
