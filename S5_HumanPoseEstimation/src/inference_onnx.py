@@ -88,29 +88,20 @@ class HPEInference_onnx():
 
         pose_layers = output
         key_points = list(get_keypoints(pose_layers=pose_layers))
-        is_joint_plotted = [False for i in range(len(JOINTS))]
-        for pose_pair in POSE_PAIRS:
-            from_j, to_j = pose_pair
+        key_points = [(thres,(int(x*scale_x),int(y*scale_y))) for thres,(x,y) in key_points]
 
+        for from_j, to_j in POSE_PAIRS:
             from_thr, (from_x_j, from_y_j) = key_points[from_j]
             to_thr, (to_x_j, to_y_j) = key_points[to_j]
-
-            from_x_j, to_x_j = int(from_x_j * scale_x), int(to_x_j * scale_x)
-            from_y_j, to_y_j = int(from_y_j * scale_y), int(to_y_j * scale_y)
 
             if from_thr > THRESHOLD and to_thr > THRESHOLD:
                 # this is a joint connection, plot a line
                 cv2.line(image_p, (from_x_j, from_y_j), (to_x_j, to_y_j), (255, 74, 0), 3)
 
-            if from_thr > THRESHOLD and not is_joint_plotted[from_j]:
+        for thres,(x,y) in key_points:
+            if thres > THRESHOLD:
                 # this is a joint
                 cv2.ellipse(image_p, (from_x_j, from_y_j), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
-                is_joint_plotted[from_j] = True
-
-            if to_thr > THRESHOLD and not is_joint_plotted[to_j]:
-                # this is a joint
-                cv2.ellipse(image_p, (to_x_j, to_y_j), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
-                is_joint_plotted[to_j] = True
 
 
 
