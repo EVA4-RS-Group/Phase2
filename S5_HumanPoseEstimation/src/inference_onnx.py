@@ -98,6 +98,10 @@ class HPEInference_onnx():
             from_x_j, to_x_j = int(from_x_j * scale_x), int(to_x_j * scale_x)
             from_y_j, to_y_j = int(from_y_j * scale_y), int(to_y_j * scale_y)
 
+            if from_thr > THRESHOLD and to_thr > THRESHOLD:
+                # this is a joint connection, plot a line
+                cv2.line(image_p, (from_x_j, from_y_j), (to_x_j, to_y_j), (255, 74, 0), 3)
+
             if from_thr > THRESHOLD and not is_joint_plotted[from_j]:
                 # this is a joint
                 cv2.ellipse(image_p, (from_x_j, from_y_j), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
@@ -108,9 +112,7 @@ class HPEInference_onnx():
                 cv2.ellipse(image_p, (to_x_j, to_y_j), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
                 is_joint_plotted[to_j] = True
 
-            if from_thr > THRESHOLD and to_thr > THRESHOLD:
-                # this is a joint connection, plot a line
-                cv2.line(image_p, (from_x_j, from_y_j), (to_x_j, to_y_j), (255, 74, 0), 3)
+
 
         time_elapsed = time.time() - since
         print('Inference complete in {:4.2f}ms'.format(
