@@ -92,13 +92,15 @@ class HPEInference():
         output = self.gen_output(img)
 
         THRESHOLD = threshold
+
+        image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+
         OUT_SHAPE = (self.OUT_HEIGHT, self.OUT_WIDTH)
         IMG_HEIGHT, IMG_WIDTH, _ = image_p.shape
 
         scale_x = IMG_WIDTH / OUT_SHAPE[0]
         scale_y = IMG_HEIGHT / OUT_SHAPE[1]
-
-        image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        
         pose_layers = get_detached(x=output)
         key_points = list(get_keypoints(pose_layers=pose_layers))
         is_joint_plotted = [False for i in range(len(JOINTS))]
