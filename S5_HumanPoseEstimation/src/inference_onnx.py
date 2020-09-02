@@ -101,7 +101,7 @@ class HPEInference_onnx():
         for thres,(x,y) in key_points:
             if thres > THRESHOLD:
                 # this is a joint
-                cv2.ellipse(image_p, (from_x_j, from_y_j), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
+                cv2.ellipse(image_p, (x, y), (4, 4), 0, 0, 360, (255, 255, 255), cv2.FILLED)
 
 
 
