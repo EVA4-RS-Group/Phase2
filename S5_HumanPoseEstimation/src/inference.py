@@ -104,6 +104,8 @@ class HPEInference():
 
         pose_layers = get_detached(x=output)
         key_points = list(get_keypoints(pose_layers=pose_layers))
+
+        print(key_points)
         is_joint_plotted = [False for i in range(len(JOINTS))]
         for pose_pair in POSE_PAIRS:
             from_j, to_j = pose_pair
@@ -160,8 +162,3 @@ class HPEInference():
             onnx_model = onnx.load(model_name)
             quantized_model = quantize(onnx_model)
             onnx.save(quantized_model, model_name.replace(".onnx",".8bit_quantized.onnx"))
-            
-
-
-
-
