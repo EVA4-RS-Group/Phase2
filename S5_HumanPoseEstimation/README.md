@@ -14,10 +14,7 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-
-
-![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk1.png)
-![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk2.png)
+    - <img src="results/mk2.png" alt="Elon Musk Orginal" height="300"/><img src="results/mk2.png" alt="Elon Musk with HPE" height="300"/>
 
 ### **Simple Baseline for HPC and Tracking - Model Architecture and JointsMSELoss**
 
