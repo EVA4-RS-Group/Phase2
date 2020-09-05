@@ -63,15 +63,54 @@ Here, the max values in the heatmaps are obtained first, this will most probably
 - Plotting using openCV
     - Heatmaps of each joints are converted into point using openCV min_max point with probability. Used openCV elllipse and line function to draw the joints and join the joints with given color pattern
 - Deployment
+    - ONNX quantilized model deployed on AWS Lambda and model is inferred using ONNX runtime.
 
 
 ## 2. Steps (Developer Section)
 - Model Conversion & Inferencing, HPE [EVA4_P2_S5_HumanPoseEstimation_ONNX_Quant_v1.ipynb](EVA4_P2_S5_HumanPoseEstimation_ONNX_Quant_v1.ipynb)
-    - Defining inferencing class ()
-    - Plotting OpenCV 
-    - Model Conversion
-- Deployment
+    - Loading HPE model (pose_resnet_50_256x256.pth.tar) with configuration file (256x256_d256x3_adam_lr1e-3.yaml)
+    - Defining inferencing class [inference.py](src/inference.py) and [inference_onnx.py](src/inference_onnx.py)
+        - Joint Definition based on MPII data set
+        ```python 
+        JOINTS = ['r-ankle', 'r-knee', 'r-hip', 'l-hip',
+        'l-knee', 'l-ankle', 'pelvis', 'thorax',
+        'upper-neck', 'head-top', 'r-wrist', 'r-elbow',
+        'r-shoulder', 'l-shoulder', 'l-elbow', 'l-wrist'] 
+        ```
+        - Define the pose pair and color set
+        ```python
+        POSE_PAIRS = [
+            # UPPER BODY
+            [9, 8],[8, 7],[7, 3],[7, 2],
+            # LOWER BODY
+            [6, 2],[2, 1],[1, 0],[6, 3],[3, 4],[4, 5],
+            # ARMS
+            [8, 12],[12, 11],[11, 10],[8, 13],[13, 14],[14, 15]]
 
+        POSE_PAIRS_COL = [
+            # UPPER BODY
+            (65,190,115),(50,55,235),(110,230,255),(195,125,40), 
+            # LOWER BODY
+            (180,75,160),(255,225,110),(65,190,115),(180,75,160),(50,55,240),(195,125,40), 
+            # ARMS
+            (180,75,160),(110,230,255), (195,125,40),
+            (255,225,110),(50,55,240),(65,190,115)]
+        ```
+        - Image transformation : Resizing to 256x256, Normalization using imagenet mean and std.
+        - Loading and infering the model to generate output with 16 channel representing each joint heatmap with 64x64 pixel size.
+    - Plotting Heatmap
+        - Resizing the output channel to 256x256
+        - Overlay and plot with input image with transparency set as allpha = 0.5 
+        - Create grid of 16 image for each heatmap for indiviual joints.
+    - Plotting Human pose connecting joints using openCV lines & ellipses
+        - Keypoints are generated using cv2.minMaxLoc to find the max location in each channel with probabilities
+        - Keypoints x,y co-ordinate are scaled from 64x64 size to 256x256.
+        - Each pose pair are plotting using color defined. (cv2.line)
+        - Each Keypoints are plotted using white color. (cv2.ellipse)
+    - Model Conversion
+        - Model is converted 
+- Deployment
+    - ONNX quantilized model deployed on AWS Lambda and model is inferred using ONNX runtime.
 
 ## 3. References
 
