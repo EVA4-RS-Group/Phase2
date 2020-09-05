@@ -1,18 +1,13 @@
 # Session 5 - Monocular Human Pose Estimation
 
 
-
-
-
 ## 1. Executive Summary
 **Group Members:** *Ramjee Ganti, Srinivasan G, Roshan, Dr. Rajesh and Sujit Ojha*
 
 ### **Objectives**:
 
-- You are implementing "Simple Baseline for HPE and tracking (Links to an external site.)". Read the paper (Links to an external site.) and write a detailed readme file describing the model architecture as well as the JointsMSELoss class.
-
-- Download the smallest model (Links to an external site.) and upload to Lambda for HPE detection.
-
+- You are implementing "[Simple Baseline for HPE and tracking](https://github.com/Microsoft/human-pose-estimation.pytorch)". Read the [paper](https://arxiv.org/pdf/1804.06208.pdf) and write a detailed readme file describing the model architecture as well as the JointsMSELoss class.
+- Download the [smallest model](https://onedrive.live.com/?authkey=%21AFkTgCsr3CT9%2D%5FA&id=56B9F9C97F261712%2110709&cid=56B9F9C97F261712) and upload to Lambda for HPE detection
 - Make sure to draw the points on the image, as well as connect the joints in the right fashion.
 
 ### **Results**:
@@ -20,14 +15,12 @@
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
 
+### **Simple Baseline for HPC and Tracking - Model Architecture and JointsMSELoss**
+
 
 ![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk1.png)
 ![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk2.png)
 
-  
-
-
-# Discription of architecture of the model "Simple Baseline for HPE and tracking (Links to an external site.)"
 
 ![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/simple_pose.png)
 
@@ -52,107 +45,7 @@ without using skip layer connections.
 Obtaining high resolution feature maps is crucial whatever the way it is obtained.
 In the following code we can appriciate its network and understand its implementation
 
-
-```python
-class PoseResNet(nn.Module):
-
-    def __init__(self, block, layers, cfg, **kwargs):
-        self.inplanes = 64
-        super(PoseResNet, self).__init__()
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
-                               bias=False)
-        self.bn1 = nn.BatchNorm2d(64, momentum=BN_MOMENTUM)
-        self.relu = nn.ReLU(inplace=True)
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        self.layer1 = self._make_layer(block, 64, layers[0])
-        self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
-        self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
-        self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
-
-        # used for deconv layers
-        self.deconv_layers = self._make_deconv_layer(
-            extra.NUM_DECONV_LAYERS,
-            extra.NUM_DECONV_FILTERS,
-            extra.NUM_DECONV_KERNELS,
-        )
-
-        self.final_layer = nn.Conv2d(
-            in_channels=extra.NUM_DECONV_FILTERS[-1],
-            out_channels=cfg.MODEL.NUM_JOINTS,
-            kernel_size=extra.FINAL_CONV_KERNEL,
-            stride=1,
-            padding=1 if extra.FINAL_CONV_KERNEL == 3 else 0
-        )
-
-    def _make_layer(self, block, planes, blocks, stride=1):
-        downsample = None
-        if stride != 1 or self.inplanes != planes * block.expansion:
-            downsample = nn.Sequential(
-                nn.Conv2d(self.inplanes, planes * block.expansion,
-                          kernel_size=1, stride=stride, bias=False),
-                nn.BatchNorm2d(planes * block.expansion, momentum=BN_MOMENTUM),
-            )
-
-        layers = []
-        layers.append(block(self.inplanes, planes, stride, downsample))
-        self.inplanes = planes * block.expansion
-        for i in range(1, blocks):
-            layers.append(block(self.inplanes, planes))
-
-        return nn.Sequential(*layers)
-
-    def _get_deconv_cfg(self, deconv_kernel, index):
-        if deconv_kernel == 4:
-            padding = 1
-            output_padding = 0
-        elif deconv_kernel == 3:
-            padding = 1
-            output_padding = 1
-        elif deconv_kernel == 2:
-            padding = 0
-            output_padding = 0
-
-        return deconv_kernel, padding, output_padding
-
-    def _make_deconv_layer(self, num_layers, num_filters, num_kernels):
-        layers = []
-        for i in range(num_layers):
-            kernel, padding, output_padding = \
-                self._get_deconv_cfg(num_kernels[i], i)
-
-            planes = num_filters[i]
-            layers.append(
-                nn.ConvTranspose2d(
-                    in_channels=self.inplanes,
-                    out_channels=planes,
-                    kernel_size=kernel,
-                    stride=2,
-                    padding=padding,
-                    output_padding=output_padding,
-                    bias=self.deconv_with_bias))
-            layers.append(nn.BatchNorm2d(planes, momentum=BN_MOMENTUM))
-            layers.append(nn.ReLU(inplace=True))
-            self.inplanes = planes
-
-        return nn.Sequential(*layers)
-
-    def forward(self, x):
-        x = self.conv1(x)
-        x = self.bn1(x)
-        x = self.relu(x)
-        x = self.maxpool(x)
-
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
-
-        x = self.deconv_layers(x)
-        x = self.final_layer(x)
-
-        return x
-
-```
+Code (file)
 
 ### JointsMSELoss
 
@@ -160,78 +53,31 @@ The loss is a simple 0.5 \* sqrt(joint_coord - target_coord)^2 , but also the ta
 
 When using the [MPII Dataset](http://human-pose.mpi-inf.mpg.de/), there are going to be 16 joints predicted, i.e. 16 layers in the output of the model.
 
-```python
-class JointsMSELoss(nn.Module):
-    def __init__(self, use_target_weight):
-        super(JointsMSELoss, self).__init__()
-        self.criterion = nn.MSELoss(size_average=True)
-        self.use_target_weight = use_target_weight
-
-    def forward(self, output, target, target_weight):
-        batch_size = output.size(0)
-        num_joints = output.size(1)
-        heatmaps_pred = output.reshape((batch_size, num_joints, -1)).split(1, 1)
-        heatmaps_gt = target.reshape((batch_size, num_joints, -1)).split(1, 1)
-        loss = 0
-
-        for idx in range(num_joints):
-            heatmap_pred = heatmaps_pred[idx].squeeze()
-            heatmap_gt = heatmaps_gt[idx].squeeze()
-            if self.use_target_weight:
-                loss += 0.5 * self.criterion(
-                    heatmap_pred.mul(target_weight[:, idx]),
-                    heatmap_gt.mul(target_weight[:, idx])
-                )
-            else:
-                loss += 0.5 * self.criterion(heatmap_pred, heatmap_gt)
-
-        return loss / num_joints
-```
+Code file
 
 
 Here, the max values in the heatmaps are obtained first, this will most probably give the right prediction, but we can do further post-processing to get the exact centre of the prediction, which is done by applying 2D gaussian centered on the heatmap.
 
 
+### **Key Highlights**
+- Model Conversion & Inferencing
+    - Defined an inference class to manage the joints, pairs, defining the model, image transformation and model conversion. **Bascially an modularized code.**
+    - ONNX Conversion, Model converted to ONNX format with int8 quantization which resulted in **~2x reduction in model size (136 mb to 66 mb) and inference speed improvement by ~1.6x(519.18 ms to 316.61 ms)**
+- Plotting using openCV
+    - Heatmaps of each joints are converted into point using 2d center point. Used openCV elllipse and line function to draw the joints and join the joints with given color pattern
+- Deployment
 
 
 ## 2. Steps (Developer Section)
-- Dataset Curation & Preprocessing - Face Alignment and Cropping [EVA4_P2_S4_Face_Recognition_v2.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_P2_S4_Face_Recognition_v2.ipynb)
-    - Curated custom dataset manually by searching through google with closeup views. It consist of 10 different celebrities with 20 images each. [Raw dataset](https://github.com/EVA4-RS-Group/Phase2/releases/download/S4/Data_v1.zip)
-    - Combined the custom dataset with [LFW](http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz) dataset. Filtered LFW dataset with classess having 20 or more images.
-    - Face Alignment based on [Session 3](https://github.com/EVA4-RS-Group/Phase2/tree/master/S3_FaceAlignment) and resized to 160x160 pixel sizes.
-        - <img src="results/FaceAlignment_customdataset.png" alt="Custom Dataset" height="150"/>
-        - <img src="results/FaceAlignment_LFW.png" alt="LFW Dataset" height="150"/>
-    - Split the dataset into 70:30 ratio for training and validation.
-- Face Recognition model training [EVA4_P2_S4_Face_Recognition_v2.ipynb](https://github.com/EVA4-RS-Group/Phase2/blob/master/S4_FaceRecognition/EVA4_P2_S4_Face_Recognition_v2.ipynb)
-    - Data Loader with data augmentation (Image horizontal flip, Color Jitter and Image normalization to imagenet stats). Sample images are below
-        - <img src="results/sample.jpg" alt="Data Loader Sample"/>
-    - Loading the [Inception_resnet_v1](models/inception_resnet_v1.py)  model with "VGG_FACE2" pre-trained weights.
-    - Removing last 5 layers and freezing all other layers. Adding then adaptive average pool layers with two full connected layers
-    - Running LR Finder to find the max learning rate for OneCycle policy for optimizer.
-    - Training the model for 10 epoch, Training accuracy = **99.91%** and Validation accuracy = **99.50%**
-    - Loss & Accuracy graph
-        - <img src="results/FRT_training_loss.png" alt="Face Recognition Training loss"/>
-        - <img src="results/loss_accuracy_2.jpg" alt="Train/Validation loss & accuracy plot"/>
-    - Visualize Model Predictions (Dashboard) 
-        - <img src="results/visualize_2.jpg" alt="Model Visualization dashboard"/>
-    - Predictions on Validation custom dataset
-        - Aishwarya Rai<img src="results/Predictions_AishwaryaRai.jpg" alt="Aishwarya Rai"/> 
-        - Elon Musk<img src="results/Predictions_ElonMusk.jpg" alt="Elon Musk"/> 
-        - Mahendra Singh Dhoni<img src="results/Predictions_MahendraSinghDhoni.jpg" alt="Mahendra Singh Dhoni"/> 
-        - Malala Yousafzai<img src="results/Predictions_MalalaYousafzai.jpg" alt="Malala Yousafzai"/> 
-        - Narendra Modi<img src="results/Predictions_NarendraModi.jpg" alt="Narendra Modi"/> 
-        - Priyanka Chopra<img src="results/Predictions_PriyankaChopra.jpg" alt="Priyanka Chopra"/> 
-        - Rahul Gandhi<img src="results/Predictions_RahulGandhi.jpg" alt="Rahul Gandhi"/> 
-        - Sachin Tendulkar<img src="results/Predictions_SachinTendulkar.jpg" alt="Sachin Tendulkar"/> 
-        - Shahrukh Khan<img src="results/Predictions_ShahrukhKhan.jpg" alt="Shahrukh Khan"/> 
-        - Shreya Ghoshal<img src="results/Predictions_ShreyaGhoshal.jpg" alt="Shreya Ghoshal"/>
-    - Saved the traced model (CPU) for deployment
+- Model Conversion & Inferencing, HPE [EVA4_P2_S5_HumanPoseEstimation_ONNX_Quant_v1.ipynb](EVA4_P2_S5_HumanPoseEstimation_ONNX_Quant_v1.ipynb)
+    - Defining inferencing class ()
+    - Plotting OpenCV 
+    - Model Conversion
 - Deployment
 
 
 ## 3. References
 
-1. [Finetune a Facial Recognition Classifier to Recognize your Face using PyTorch](https://towardsdatascience.com/finetune-a-facial-recognition-classifier-to-recognize-your-face-using-pytorch-d00a639d9a79)
-2. [Labeled Faces in the Wild](http://vis-www.cs.umass.edu/lfw/)
-3. [Hosting AWS static website](https://docs.aws.amazon.com/AmazonS3/latest/dev/HostingWebsiteOnS3Setup.html)
-4. [EVA4 Phase2 Session3, Face Recognition Part 1](https://theschoolof.ai/)
+1. [Simple Baseline for HPE and tracking](https://github.com/Microsoft/human-pose-estimation.pytorch)
+2. [Human Pose Estimation Blog by Satyajitghana](https://medium.com/@satyajitghana7/human-pose-estimation-and-quantization-of-pytorch-to-onnx-models-a-detailed-guide-b9c91ddc0d9f)
+3. [EVA4 Phase2 Session5, Human Pose Estimation](https://theschoolof.ai/)
