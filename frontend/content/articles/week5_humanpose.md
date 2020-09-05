@@ -11,7 +11,7 @@ The task is to estimate human pose on a image using ONNX runtime.
           <li><input id="getFile" type="file" accept="image/jpg" name="files"/></li>
         </ul>
         <ul class="actions">
-          <li><input id="humanPose" type="button" value="Human Pose Estimation"/></li>
+          <li><input id="humanPose" type="button" value="Human Pose"/></li>
         </ul>
       </div>
       <div class="col-6 col-12-xsmall">
