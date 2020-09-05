@@ -61,7 +61,7 @@ Here, the max values in the heatmaps are obtained first, this will most probably
     - Defined an inference class to manage the joints, pairs, defining the model, image transformation and model conversion. **Bascially an modularized code.**
     - ONNX Conversion, Model converted to ONNX format with int8 quantization which resulted in **~2x reduction in model size (136 mb to 66 mb) and inference speed improvement by ~1.6x(519.18 ms to 316.61 ms)**
 - Plotting using openCV
-    - Heatmaps of each joints are converted into point using 2d center point. Used openCV elllipse and line function to draw the joints and join the joints with given color pattern
+    - Heatmaps of each joints are converted into point using openCV min_max point with probability. Used openCV elllipse and line function to draw the joints and join the joints with given color pattern
 - Deployment
 
 
