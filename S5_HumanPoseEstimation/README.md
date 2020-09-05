@@ -27,7 +27,9 @@
   
 
 
-### Discription of architecture of the model "Simple Baseline for HPE and tracking (Links to an external site.)"
+# Discription of architecture of the model "Simple Baseline for HPE and tracking (Links to an external site.)"
+
+![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/simple_pose.png)
 
 
 - The model proposed simply adds 3 deconvolutional layers over the last convolution stage in the ResNet backbone network, called C5.   
