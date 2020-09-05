@@ -19,8 +19,8 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-- <img src="https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk1.png"
-- <img src="https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk2.png"
+![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk1.png)
+![Image](https://github.com/EVA4-RS-Group/Phase2/blob/master/S5_HumanPoseEstimation/results/mk2.png)
 
   
 
