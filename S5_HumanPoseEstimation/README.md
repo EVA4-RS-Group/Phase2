@@ -10,7 +10,7 @@
 - Download the [smallest model](https://onedrive.live.com/?authkey=%21AFkTgCsr3CT9%2D%5FA&id=56B9F9C97F261712%2110709&cid=56B9F9C97F261712) and upload to Lambda for HPE detection
 - Make sure to draw the points on the image, as well as connect the joints in the right fashion.
 
-### **Simple Baseline for HPC and Tracking - Model Architecture and JointsMSELoss"
+### **Simple Baseline for HPC and Tracking - Model Architecture and JointsMSELoss**
 
 - Space for Dr. Rajesh
 
