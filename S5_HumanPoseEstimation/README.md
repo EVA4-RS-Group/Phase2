@@ -108,7 +108,8 @@ Here, the max values in the heatmaps are obtained first, this will most probably
         - Each pose pair are plotting using color defined. (cv2.line)
         - Each Keypoints are plotted using white color. (cv2.ellipse)
     - Model Conversion
-        - Model is converted 
+        - Model is converted to ONNX using pytorch export function
+        - Using ONNX runtime quantization to quantize the model (8bit)
 - Deployment
     - ONNX quantilized model deployed on AWS Lambda and model is inferred using ONNX runtime.
 
@@ -117,3 +118,7 @@ Here, the max values in the heatmaps are obtained first, this will most probably
 1. [Simple Baseline for HPE and tracking](https://github.com/Microsoft/human-pose-estimation.pytorch)
 2. [Human Pose Estimation Blog by Satyajitghana](https://medium.com/@satyajitghana7/human-pose-estimation-and-quantization-of-pytorch-to-onnx-models-a-detailed-guide-b9c91ddc0d9f)
 3. [EVA4 Phase2 Session5, Human Pose Estimation](https://theschoolof.ai/)
+4. [PyTorch YoloV4 ONNX](https://github.com/Tianxiaomo/pytorch-YOLOv4)
+5. [AlexNet to ONNX](https://michhar.github.io/convert-pytorch-onnx/)
+6. [ResNet to ONNX](https://colab.research.google.com/github/bentoml/gallery/blob/master/onnx/resnet50/resnet50.ipynb)
+7. [SuperResolution to ONNX](https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html)
