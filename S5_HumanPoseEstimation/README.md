@@ -42,7 +42,7 @@ without using skip layer connections.
 Obtaining high resolution feature maps is crucial whatever the way it is obtained.
 In the following code we can appriciate its network and understand its implementation
 
-Code (file)
+Code: [pose_resnet.py](src/pose_resnet.py)
 
 ### JointsMSELoss
 
@@ -50,7 +50,7 @@ The loss is a simple 0.5 \* sqrt(joint_coord - target_coord)^2 , but also the ta
 
 When using the [MPII Dataset](http://human-pose.mpi-inf.mpg.de/), there are going to be 16 joints predicted, i.e. 16 layers in the output of the model.
 
-Code file
+Code: [loss.py](src/loss.py)
 
 
 Here, the max values in the heatmaps are obtained first, this will most probably give the right prediction, but we can do further post-processing to get the exact centre of the prediction, which is done by applying 2D gaussian centered on the heatmap.
