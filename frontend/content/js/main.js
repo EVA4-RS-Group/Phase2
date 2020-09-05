@@ -56,6 +56,7 @@
     "face_mask": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_mask",
     "face_align": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_align",
     "face_recog": "https://qeqn72vc9d.execute-api.ap-south-1.amazonaws.com/dev/face_rec",
+    "human_pose": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
   };
 
   // Utils
@@ -169,6 +170,29 @@
     });
     $.ajax({
       url: url["face_mask"],
+      type: 'POST',
+      data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
+
+  $("#humanPose").click(function(){
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
+    $.ajax({
+      url: url["human_pose"],
       type: 'POST',
       data: documentData,
       async: false,
