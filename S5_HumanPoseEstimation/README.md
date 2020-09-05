@@ -31,6 +31,6 @@
 
 ## 3. References
 
-1. [Simple Baseline for HPE and tracking](https://github.com/Microsoft/human-pose-estimation.pytorch
+1. [Simple Baseline for HPE and tracking](https://github.com/Microsoft/human-pose-estimation.pytorch)
 2. [Human Pose Estimation Blog by Satyajitghana](https://github.com/satyajitghana/TSAI-DeepVision-EVA4.0-Phase-2/blob/master/05-HumanPoseEstimation-ONNX/HumanPoseEstimation_ONNX_Quant.ipynb)
 2. [EVA4 Phase2 Session5, Human Pose Estimation](https://theschoolof.ai/)
