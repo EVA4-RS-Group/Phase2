@@ -15,6 +15,7 @@ import base64
 import copy
 import cv2
 import numpy as np
+from operator import itemgetter
 
 from requests_toolbelt.multipart import decoder
 
@@ -118,7 +119,6 @@ class HPEInference_onnx():
         return ort_outs
 
     def vis_pose(self,img,threshold = 0.5):
-        since = time.time()
 
         output = self.gen_output(img)
 
@@ -150,10 +150,6 @@ class HPEInference_onnx():
             if thres > THRESHOLD:
                 # this is a joint
                 cv2.ellipse(image_p, (x, y), (5, 5), 0, 0, 360, (255, 255, 255), cv2.FILLED)
-
-        time_elapsed = time.time() - since
-        print('Inference complete in {:4.2f}ms'.format(
-        time_elapsed*1000))
 
         return cv2.imencode(".jpg", cv2.cvtColor(image_p, cv2.COLOR_BGR2RGB))
 
@@ -188,8 +184,8 @@ def human_pose_estimation(event, context):
         img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
 
         hpe_infer_onnx = HPEInference_onnx()
-        img_out = hpe_infer_onnx.vis_pose(img, 0.4)
-
+        err, img_out = hpe_infer_onnx.vis_pose(img, 0.4)
+        print('INFERENCING SUCCESSFUL, RETURNING IMAGE')
         fields = {"file0": ("file0", base64.b64encode(img_out).decode("utf-8"), "image/jpg",)}
 
         return {"statusCode": 200, "headers": headers, "body": json.dumps(fields)}
