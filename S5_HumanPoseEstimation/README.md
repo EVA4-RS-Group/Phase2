@@ -14,7 +14,7 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-    <img src="results/img7.png" alt="Elon Musk1" height="700"/><img src="results/img6.png" alt="Elon Musk2" height="700"/>
+    - <img src="results/img7.png" alt="Elon Musk1" height="700"/><img src="results/img6.png" alt="Elon Musk2" height="700"/>
 - Colab results
     - <img src="results/mk1.png" alt="Elon Musk Orginal" height="300"/><img src="results/mk2.png" alt="Elon Musk with HPE" height="300"/>
 
