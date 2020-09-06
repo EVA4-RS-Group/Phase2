@@ -64,6 +64,7 @@ Here, the max values in the heatmaps are obtained first, this will most probably
     - Heatmaps of each joints are converted into point using openCV min_max point with probability. Used openCV elllipse and line function to draw the joints and join the joints with given color pattern
 - Deployment
     - ONNX quantilized model deployed on AWS Lambda and model is inferred using ONNX runtime.
+    - Image being resized and normalized using opencv and numpy instead of torchvision.transforms().
 
 
 ## 2. Steps (Developer Section)
@@ -110,8 +111,9 @@ Here, the max values in the heatmaps are obtained first, this will most probably
     - Model Conversion
         - Model is converted to ONNX using pytorch export function
         - Using ONNX runtime quantization to quantize the model (8bit)
-- Deployment
+- Deployment [handler.py](HPT-Deployment/handler.py)
     - ONNX quantilized model deployed on AWS Lambda and model is inferred using ONNX runtime.
+    - Image being resized and normalized using opencv and numpy instead of torchvision.transforms().
 
 ## 3. References
 

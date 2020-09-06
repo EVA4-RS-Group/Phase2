@@ -151,7 +151,7 @@ class HPEInference_onnx():
                 # this is a joint
                 cv2.ellipse(image_p, (x, y), (5, 5), 0, 0, 360, (255, 255, 255), cv2.FILLED)
 
-        return cv2.imencode(".jpg", cv2.cvtColor(image_p, cv2.COLOR_BGR2RGB))
+        return cv2.imencode(".jpg", image_p)
 
 headers = {
     "Content-Type": "application/json",
