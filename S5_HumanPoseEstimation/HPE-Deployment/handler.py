@@ -14,6 +14,7 @@ import json
 import base64
 import copy
 import cv2
+import numpy as np
 
 from requests_toolbelt.multipart import decoder
 
