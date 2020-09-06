@@ -1,5 +1,5 @@
+https://files.pythonhosted.org/packages/38/a7/a6a009991d0df86ef76023f1334a0d1201b310dd0e7abb4d3e64b080cc87/torchvision-0.7.0-cp38-cp38-manylinux1_x86_64.whl
 opencv-python-headless
 onnxruntime
-torchvision
 numpy
 requests_toolbelt
