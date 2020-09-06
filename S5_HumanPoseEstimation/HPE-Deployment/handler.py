@@ -14,7 +14,6 @@ import json
 import base64
 import copy
 import cv2
-from torchvision import transforms
 
 from requests_toolbelt.multipart import decoder
 
@@ -81,21 +80,35 @@ class HPEInference_onnx():
     def __init__(self):
 
         self.ort_session = onnxruntime.InferenceSession('/tmp/simple_pose_estimation.8bit_quantized.onnx')
-        self.IMAGE_SIZE = [256,256]
-
         self.OUT_WIDTH,self.OUT_HEIGHT = 64,64
 
-        self.transform = transforms.Compose([
-            transforms.Resize(self.IMAGE_SIZE),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
-            ])
+    def transforms(self, img):
+        sized = cv2.resize(img, (256,256))
+        sized = cv2.cvtColor(sized, cv2.COLOR_BGR2RGB)
+        sized = sized[np.newaxis, ...]
 
-    def gen_output(self,image_bytes):
-        img = Image.open(io.BytesIO(image_bytes))
-        tr_img = self.transform(img)
+        mean_vec = np.array([0.485, 0.456, 0.406])
+        stddev_vec = np.array([0.229, 0.224, 0.225])
+
+        img_data = np.stack(sized).transpose(0, 3, 1, 2)
+
+        #normalize
+        mean_vec = np.array([0.485, 0.456, 0.406])
+        stddev_vec = np.array([0.229, 0.224, 0.225])
+        norm_img_data = np.zeros(img_data.shape).astype('float32')
+
+        for i in range(img_data.shape[0]):
+            for j in range(img_data.shape[1]):
+                norm_img_data[i,j,:,:] = (img_data[i,j,:,:]/255 - mean_vec[j]) / stddev_vec[j]
+
+        #add batch channel
+        norm_img_data = norm_img_data.reshape(-1, 3, 256, 256).astype('float32')
+        return norm_img_data
+
+    def gen_output(self,img):
+        tr_img = self.transforms(img)
         # compute ONNX Runtime output prediction
-        ort_inputs = {self.ort_session.get_inputs()[0].name: to_numpy(tr_img.unsqueeze(0))}
+        ort_inputs = {self.ort_session.get_inputs()[0].name: tr_img}
         ort_outs = self.ort_session.run(None, ort_inputs)
 
         print(np.array(ort_outs).shape)
@@ -103,14 +116,15 @@ class HPEInference_onnx():
 
         return ort_outs
 
-    def vis_pose(self,image_bytes,threshold = 0.5):
+    def vis_pose(self,img,threshold = 0.5):
         since = time.time()
 
-        output = self.gen_output(image_bytes)
+        output = self.gen_output(img)
 
         THRESHOLD = threshold
         OUT_SHAPE = (self.OUT_HEIGHT, self.OUT_WIDTH)
-        image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        #image_p = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        image_p = img
 
         IMG_HEIGHT, IMG_WIDTH, _ = image_p.shape
 
@@ -170,8 +184,10 @@ def human_pose_estimation(event, context):
         print('BODY LOADED')
 
         picture = decoder.MultipartDecoder(body, content_type_header).parts[0]
+        img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
+
         hpe_infer_onnx = HPEInference_onnx()
-        img_out = hpe_infer_onnx.vis_pose(picture.content, 0.4)
+        img_out = hpe_infer_onnx.vis_pose(img, 0.4)
 
         fields = {"file0": ("file0", base64.b64encode(img_out).decode("utf-8"), "image/jpg",)}
 
