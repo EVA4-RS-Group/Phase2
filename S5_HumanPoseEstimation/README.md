@@ -14,6 +14,8 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
+    - <img src="results/img7.png" alt="Elon Musk1" height="450"/><img src="results/img6.png" alt="Elon Musk2" height="450"/>
+- Colab results
     - <img src="results/mk1.png" alt="Elon Musk Orginal" height="300"/><img src="results/mk2.png" alt="Elon Musk with HPE" height="300"/>
 
 
@@ -111,7 +113,7 @@ Here, the max values in the heatmaps are obtained first, this will most probably
     - Model Conversion
         - Model is converted to ONNX using pytorch export function
         - Using ONNX runtime quantization to quantize the model (8bit)
-- Deployment [handler.py](HPT-Deployment/handler.py)
+- Deployment [handler.py](HPE-Deployment/handler.py)
     - ONNX quantilized model deployed on AWS Lambda and model is inferred using ONNX runtime.
     - Image being resized and normalized using opencv and numpy instead of torchvision.transforms().
 
