@@ -1,4 +1,4 @@
-# Session 5 - Monocular Human Pose Estimation
+# Session 5 - Variational AutoEncoder
 
 
 ## 1. Executive Summary
