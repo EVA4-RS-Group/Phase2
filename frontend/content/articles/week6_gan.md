@@ -8,7 +8,7 @@ The task is to generate Indian car image using GAN and ONNX runtime.
     <div class="row gtr-uniform">
       <div class="col-3 col-12-xsmall">
         <ul class="actions">
-          <li><input id="humanPose" type="button" value="Human Pose"/></li>
+          <li><input id="GAN" type="button" value="Generative Adversarial Network"/></li>
         </ul>
       </div>
       <div class="col-6 col-12-xsmall">

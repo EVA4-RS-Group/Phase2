@@ -57,6 +57,7 @@
     "face_align": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_align",
     "face_recog": "https://qeqn72vc9d.execute-api.ap-south-1.amazonaws.com/dev/face_rec",
     "human_pose": "https://ppcgpv4fq8.execute-api.ap-south-1.amazonaws.com/dev/humanPose",
+    "gan": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
   };
 
   // Utils
@@ -195,6 +196,25 @@
       url: url["human_pose"],
       type: 'POST',
       data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
+
+  $("#GAN").click(function(){
+
+    $.ajax({
+      url: url["gan"],
+      type: 'GET',
       async: false,
       cache: false,
       contentType: false,
