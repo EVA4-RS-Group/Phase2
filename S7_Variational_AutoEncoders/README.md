@@ -1,4 +1,4 @@
-# Session 5 - Variational AutoEncoder
+# Session 7 - Variational AutoEncoder
 
 
 ## 1. Executive Summary
