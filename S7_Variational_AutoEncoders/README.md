@@ -19,7 +19,7 @@
     **Sample input**
     - <img src="results/sample_input.png" alt="Input images" height="300"/>
     
-    **Output image**
+    **Reconstructed image**
     
     - <img src="results/Reconstruction.png" alt="Reconstruction" height="300"/>
 
