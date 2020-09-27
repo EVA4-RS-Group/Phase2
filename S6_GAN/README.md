@@ -1,4 +1,4 @@
-# Session 5 - Monocular Human Pose Estimation
+# Session 6 - Generative Adversarial Network
 
 
 ## 1. Executive Summary
