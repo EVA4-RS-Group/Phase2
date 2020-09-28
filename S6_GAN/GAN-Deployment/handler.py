@@ -94,9 +94,12 @@ def generative_adversarial_network(event, context):
         #pil_img = Image.fromarray((img_out * 255).astype(np.uint8))
         #img_out = np.array(img_out, dtype=img_out.dtype, order='C')
         #buffered = io.BytesIO(img_out)
+        buffered = BytesIO()
+        img_out.save(buffered, format="JPEG")
+        #img_str = base64.b64encode(buffered.getvalue())
 
         print('INFERENCING SUCCESSFUL, RETURNING IMAGE')
-        fields = {"file0": ("file0", base64.b64encode(img_out.tobytes()).decode("utf-8"), "image/jpg",)}
+        fields = {"file0": ("file0", base64.b64encode(buffered.getvalue()).decode("utf-8"), "image/jpg",)}
 
         return {"statusCode": 200, "headers": headers, "body": json.dumps(fields)}
 
