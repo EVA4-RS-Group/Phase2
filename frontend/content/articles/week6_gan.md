@@ -11,12 +11,6 @@ The task is to generate Indian car image using GAN and ONNX runtime.
           <li><input id="GAN" type="button" value="GAN"/></li>
         </ul>
       </div>
-      <div class="col-6 col-12-xsmall">
-        <span class="image fit">
-          <img id="upImage" src="#" alt="">
-        </span>
-        <h3 id="imgClass" style="text-align:center" ></p>
-      </div>
     </div>
     <div class="row gtr-uniform">
       <div class="col-6">
