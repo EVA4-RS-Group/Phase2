@@ -16,7 +16,7 @@
 - Website results
     - <img src="results/img7.png" alt="Elon Musk1" height="700"/><img src="results/img6.png" alt="Elon Musk2" height="700"/>
 - Colab results
-    - <img src="results/mk1.png" alt="Elon Musk Orginal" height="300"/><img src="results/mk2.png" alt="Elon Musk with HPE" height="300"/>
+    - <img src="results/R1GAN_training_results_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results.png" alt="Indian Car image" height="300"/>
 
 
 ### **Key Highlights**
@@ -35,11 +35,15 @@
         - One direction of orientation or can be flipped to get same orientation
     - Processed images manually to flip the images and removed background for some of the images.
     - Finally processed all the image to generate 128x128 pixel images by resizing and padding white background. [EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb](Training/EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb)
+- Training based on R1GAN, Reference #1
+    - Updated the Generator and Discriminator for 128x128 pixel with additional layer of convolution
+    - Trained for 2000+ epoches to improve the images generated. Sample images below,
+    - <img src="results/R1GAN_training_results_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results.png" alt="Indian Car image" height="300"/>
 
 
 ## 3. References
 
-1. R1GAN
+1. [R1GAN, GAN with R1 Regularizer](https://github.com/Yangyangii/GAN-Tutorial/blob/master/CelebA/R1GAN.ipynb)
 2. DCGAN
 3. [EVA4 Phase2 Session6, Generative Adversarial Network](https://theschoolof.ai/)
 7. [SuperResolution to ONNX](https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html)
