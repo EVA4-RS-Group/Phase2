@@ -23,9 +23,8 @@
 - Dataset curation & Preprocessing - [raw images](https://drive.google.com/drive/folders/1nskvo2QBLbtvIrXdoZeE5hRFp1WPNs3N?usp=sharing),  [processed images](https://github.com/EVA4-RS-Group/Phase2/releases/download/S6/processed_images_step4a.zip) and [EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb](Training/EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb)
 - Training based on R1GAN Network[EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb)
     - Updated the network to process 128x128 pixel instead of 64x64 pixels.
-- Model Conversion & Inferencing
+- Model Conversion & Inferencing[EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb)
 - Deployment
-    - Quantization results
 
 
 ## 2. Steps (Developer Section)
@@ -42,6 +41,7 @@
     - <img src="results/R1GAN_training_results_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results.png" alt="Indian Car image" height="300"/>
 - Converted the model to onnx  [EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb)
     - <img src="results/R1GAN_training_results_onnx_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results_onnx.png" alt="Indian Car image" height="300"/>
+- Deployment
 
 
 ## 3. References
