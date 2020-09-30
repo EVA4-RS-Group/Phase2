@@ -73,9 +73,12 @@ def variational_auto_encoder(event, context):
 
         # x = x.to(DEVICE)
         # x = x[:16].to(DEVICE)
-        img_out, kl_div = model(x)
+        out, kl_div = model(x)
         x = (x.data + 1) / 2
-        img_out =  (img_out.data + 1) / 2
+
+        img_out = (np.clip((np.transpose(out, [1,2,0])+1)/2.0,0,1)*255).astype(np.uint8)
+        buffered = BytesIO()
+        img_out.save(buffered, format="JPEG")
         
         print('INFERENCING SUCCESSFUL, RETURNING IMAGE')
         fields = {"file0": ("file0", base64.b64encode(img_out).decode("utf-8"), "image/jpg",)}
