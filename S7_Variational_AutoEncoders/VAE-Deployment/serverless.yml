@@ -24,13 +24,13 @@ provider:
           - '*/*'
           - multipart/form-data
   environment:
-    S3_BUCKET: tsai-assignment-models-s7
-    MODEL_PATH: GAN_Indian_cars.onnx
+    S3_BUCKET: roshantac-bucket1
+    MODEL_PATH: VAE_jit.pt
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - s3:getObject
-      Resource: arn:aws:s3:::tsai-assignment-models-s7/*
+      Resource: arn:aws:s3:::roshantac-bucket1/*
 
 custom:
   pythonRequirements:
@@ -64,8 +64,8 @@ package:
     - model/**
 
 functions:
-  variation_auto_encoder:
-    handler: handler.variation_auto_encoder
+  variational_auto_encodder:
+    handler: handler.variational_auto_encodder
     memoreSize: 3008
     timeout: 60
     events:
