@@ -24,13 +24,13 @@ provider:
           - '*/*'
           - multipart/form-data
   environment:
-    S3_BUCKET: roshantac-bucket1
-    MODEL_PATH: VAE_jit.pt
+    S3_BUCKET: tsai-assignment-models-s7
+    MODEL_PATH: VAE_jit2.pt
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - s3:getObject
-      Resource: arn:aws:s3:::roshantac-bucket1/*
+      Resource: arn:aws:s3:::tsai-assignment-models-s7/*
 
 custom:
   pythonRequirements:
@@ -64,8 +64,8 @@ package:
     - model/**
 
 functions:
-  variational_auto_encodder:
-    handler: handler.variational_auto_encodder
+  variational_auto_encoder:
+    handler: handler.variational_auto_encoder
     memoreSize: 3008
     timeout: 60
     events:
