@@ -11,6 +11,7 @@ import os
 import io
 import json
 import base64
+import numpy as np
 from PIL import Image
 
 import torch
@@ -76,7 +77,7 @@ def variational_auto_encoder(event, context):
         out, kl_div = model(x)
         x = (x.data + 1) / 2
 
-        img_out = (np.clip((np.transpose(out, [1,2,0])+1)/2.0,0,1)*255).astype(np.uint8)
+        img_out = (np.clip((np.transpose(out.detach().numpy(), [1,2,0])+1)/2.0,0,1)*255).astype(np.uint8)
         buffered = BytesIO()
         img_out.save(buffered, format="JPEG")
         
