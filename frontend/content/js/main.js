@@ -58,7 +58,7 @@
     "face_recog": "https://qeqn72vc9d.execute-api.ap-south-1.amazonaws.com/dev/face_rec",
     "human_pose": "https://ppcgpv4fq8.execute-api.ap-south-1.amazonaws.com/dev/humanPose",
     "gan": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
-    "vae": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
+    "vae": "https://4p5t092168.execute-api.ap-south-1.amazonaws.com/dev/VAE",
   };
 
   // Utils
