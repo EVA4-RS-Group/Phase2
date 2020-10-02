@@ -41,7 +41,7 @@
     - <img src="results/R1GAN_training_results_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results.png" alt="Indian Car image" height="300"/>
 - Converted the model to onnx  [EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb)
     - <img src="results/R1GAN_training_results_onnx_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results_onnx.png" alt="Indian Car image" height="300"/>
-- Deployment
+- Deployment [handler.py](GAN-Deployment/handler.py) and [serverless.yml](GAN-Deployment/serverless.yml)
     - Using serverless, python-plugin-requirements and onnxruntime
 
 

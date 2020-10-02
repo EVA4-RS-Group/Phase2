@@ -14,7 +14,7 @@ The task is to generate Indian car image using VAE and ONNX runtime.
     </div>
     <div class="row gtr-uniform">
       <div class="col-6">
-        <span class="image fit"><img id="file0" src="#" alt=""></span>
+        <span class="image fit"><img id="file0" src="#" alt="" height=300></span>
       </div>
     </div>
   </section>

@@ -77,12 +77,18 @@ def variational_auto_encoder(event, context):
         out, kl_div = model(x)
         x = (x.data + 1) / 2
 
-        img_out = (np.clip((np.transpose(out.detach().numpy()[0,:,:,:], [1,2,0])+1)/2.0,0,1)*255).astype(np.uint8)
+        out = (np.clip((np.transpose(out.detach().numpy()[0,:,:,:], [1,2,0])+1)/2.0,0,1)*255).astype(np.uint8)
+        im = Image.fromarray(out)
+        buf = io.BytesIO()
+        im.save(buf, format='JPEG')
+        #byte_im = buf.getvalue()
         # buffered = io.BytesIO()
         # img_out.save(buffered, format="JPEG")
+        # image_p = cv2.cvtColor(out, cv2.COLOR_RGB2BGR)
+        # err, img_out = cv2.imencode(".jpg", image_p)
         
         print('INFERENCING SUCCESSFUL, RETURNING IMAGE')
-        fields = {"file0": ("file0", base64.b64encode(img_out.tobytes()).decode("utf-8"), "image/jpg",)}
+        fields = {"file0": ("file0", base64.b64encode(buf.getvalue()).decode("utf-8"), "image/jpg",)}
 
         return {"statusCode": 200, "headers": headers, "body": json.dumps(fields)}
 
