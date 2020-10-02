@@ -14,7 +14,7 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-    - <img src="results/R1GAN_website_results1.png" alt="Set1" height="300"/><img src="results/R1GAN_website_results2.png" alt="set2" height="300"/>
+    - <img src="results/website_results1.png" alt="Set1" height="300"/><img src="results/website_results2.png" alt="set2" height="300"/>
 - Colab results
     **Sample input**
     - <img src="results/sample_input.png" alt="Input images" height="300"/>
