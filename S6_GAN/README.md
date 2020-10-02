@@ -14,7 +14,7 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-    - <img src="results/img7.png" alt="Elon Musk1" height="700"/><img src="results/img6.png" alt="Elon Musk2" height="700"/>
+    - <img src="results/R1GAN_website_results1.png" alt="Set1" height="300"/><img src="results/R1GAN_website_results2.png" alt="set2" height="300"/>
 - Colab results
     - <img src="results/R1GAN_training_results_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results.png" alt="Indian Car image" height="300"/>
 
@@ -24,7 +24,7 @@
 - Training based on R1GAN Network[EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb)
     - Updated the network to process 128x128 pixel instead of 64x64 pixels.
 - Model Conversion & Inferencing[EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb)
-- Deployment
+- Deployment in AWS Lambda using serverless and ONNX run time 
 
 
 ## 2. Steps (Developer Section)
@@ -42,6 +42,7 @@
 - Converted the model to onnx  [EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb)
     - <img src="results/R1GAN_training_results_onnx_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results_onnx.png" alt="Indian Car image" height="300"/>
 - Deployment
+    - Using serverless, python-plugin-requirements and onnxruntime
 
 
 ## 3. References

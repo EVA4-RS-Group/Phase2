@@ -14,6 +14,7 @@ import json
 import base64
 import numpy as np
 from PIL import Image
+import cv2
 
 from requests_toolbelt.multipart import decoder
 import onnxruntime
@@ -88,15 +89,17 @@ def generative_adversarial_network(event, context):
         # body = base64.b64decode(event["body"])
         print('BODY LOADED')
 
-        img_out = get_sample_image(n_noise=256, n_samples=25)
+        out = get_sample_image(n_noise=256, n_samples=25)
         #print(img_out.shape)
         #print(img_out.dtype)
         #pil_img = Image.fromarray((img_out * 255).astype(np.uint8))
         #img_out = np.array(img_out, dtype=img_out.dtype, order='C')
         #buffered = io.BytesIO(img_out)
+        image_p = cv2.cvtColor(out, cv2.COLOR_RGB2BGR)
+        err, img_out = cv2.imencode(".jpg", image_p)
 
         print('INFERENCING SUCCESSFUL, RETURNING IMAGE')
-        fields = {"file0": ("file0", base64.b64encode(img_out.tobytes()).decode("utf-8"), "image/jpg",)}
+        fields = {"file0": ("file0", base64.b64encode(img_out).decode("utf-8"), "image/jpg",)}
 
         return {"statusCode": 200, "headers": headers, "body": json.dumps(fields)}
 
