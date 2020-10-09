@@ -1,7 +1,9 @@
 import cv2
 
 
-def cropeImage(img1, img2):
+def cropeImage(image1, image2):
+	img1 = cv2.imread(image1)
+	img2 = cv2.imread(image2)
 	print("img1 ", img1.shape)
 	print("img2 ", img2.shape)
 	rw1, col1, chnl1 = img1.shape
@@ -35,9 +37,6 @@ def cropeImage(img1, img2):
 		pass
 	print("img1 ", img1.shape)
 	print("img2 ", img2.shape)
-#	cv2.imshow("crop1",img1)
-#	cv2.imshow("crop2",img2)
-#	cv2.waitKey(0)
 	return img1, img2
 
 
