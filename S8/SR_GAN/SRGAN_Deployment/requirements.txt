@@ -1,0 +1,5 @@
+opencv-python-headless
+onnxruntime
+numpy
+requests_toolbelt
+Pillow
