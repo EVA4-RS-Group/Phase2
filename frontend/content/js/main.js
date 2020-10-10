@@ -59,6 +59,7 @@
     "human_pose": "https://ppcgpv4fq8.execute-api.ap-south-1.amazonaws.com/dev/humanPose",
     "gan": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
     "vae": "https://4p5t092168.execute-api.ap-south-1.amazonaws.com/dev/VAE",
+    "srgan": "/",
   };
 
   // Utils
@@ -249,6 +250,28 @@
     });
   })
 
+    $("#srGAN").click(function(){
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
+    $.ajax({
+      url: url["srgan"],
+      type: 'POST',
+      data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
   // Display error messages.
   function onError(error) {
     alert(error.responseText);
