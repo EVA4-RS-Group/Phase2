@@ -95,12 +95,14 @@ def super_resolution_GAN(event, context):
         Exception: Returning API repsonse 500
     """
     try:
-        # content_type_header = event['headers']['content-type']
+        content_type_header = event['headers']['content-type']
         # print(event['body'])
-        # body = base64.b64decode(event["body"])
+        body = base64.b64decode(event["body"])
         print('BODY LOADED')
+        picture = decoder.MultipartDecoder(body, content_type_header).parts[0]
+        img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
 
-        out = getSRImage(inptImg)
+        out = getSRImage(img)
         #print(img_out.shape)
         #print(img_out.dtype)
         #pil_img = Image.fromarray((img_out * 255).astype(np.uint8))
