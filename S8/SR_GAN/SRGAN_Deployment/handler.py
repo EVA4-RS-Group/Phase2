@@ -7,13 +7,12 @@ try:
 except ImportError:
     pass
 
-import boto3
 import os
 import io
 import json
 import base64
 import numpy as np
-from PIL import Image
+# from PIL import Image
 import cv2
 
 from requests_toolbelt.multipart import decoder
@@ -21,28 +20,11 @@ import onnxruntime
 
 print("Import End...")
 
-# define env bariables if there are not existing
-S3_BUCKET = os.environ['S3_BUCKET'] if 'S3_BUCKET' in os.environ \
-    else 'roshantac-bucket1'
-MODEL_PATH = os.environ['MODEL_PATH'] if 'MODEL_PATH' in os.environ \
-    else 'SRGAN.onnx'
-
-model_name='/tmp/'+ MODEL_PATH
+model_name='models/SRGAN.onnx'
 
 print('Downloading model...')
 
-# s3 = boto3.client('s3')
-s3 = boto3.resource('s3')
 
-try:
-    if not os.path.isfile(MODEL_PATH):
-        print("Loading ONNX Model file in temp directory")
-        onnx_file = s3.Object(S3_BUCKET, 
-                              MODEL_PATH).download_file(model_name)
-        print("Model Loaded...")
-except Exception as e:
-    print(repr(e))
-    raise(e)
 
 headers = {
     "Content-Type": "application/json",
@@ -50,50 +32,24 @@ headers = {
     "Access-Control-Allow-Credentials": True,
 }
 
-# def get_sample_image(n_noise=100, n_samples=64):
-#     """
-#         save sample 100 images
-#     """
-#     n_rows = 5
-
-#     ort_session = onnxruntime.InferenceSession(model_name) 
-#     rand_inp = np.array(np.random.rand(n_samples,n_noise)*2-1,dtype='f')
-#     ort_inputs = {ort_session.get_inputs()[0].name: rand_inp}
-#     ort_outs = ort_session.run(None,ort_inputs)
-
-#     x_fake = np.concatenate([np.concatenate([ort_outs[0][n_rows*j+i] for i in range(n_rows)], axis=1) for j in range(n_rows)], axis=2)
-#     #img = Image.fromarray((np.clip((np.transpose(x_fake, [1,2,0])+1)/2.0,0,1)*255).astype(np.uint8))
-#     img = (np.clip((np.transpose(x_fake, [1,2,0])+1)/2.0,0,1)*255).astype(np.uint8)
-
-#     return img
-
 def getSRImage(inptImg):
-    transform = transforms.Compose([transforms.Resize(224),
-                                transforms.CenterCrop(224),
-                                transforms.ToTensor(),
-                               ])
-    rand_inp = transform(inptImg).unsqueeze(0)
-    ort_inputs = {ort_session.get_inputs()[0].name: rand_inp.detach().numpy()}
+    
+    ort_session = onnxruntime.InferenceSession(model_name) 
+    rand_inp = transforms(inptImg)
+    ort_inputs = {ort_session.get_inputs()[0].name: rand_inp}
     ort_outs = ort_session.run(None,ort_inputs)
-
     return np.transpose(ort_outs[0][0,:,:,:], [1,2,0])
 
 
+def transforms(img):
+    sized = cv2.resize(img, (224,224))
+    sized = cv2.cvtColor(sized, cv2.COLOR_BGR2RGB)/255
+    sized = sized[np.newaxis, ...]
+    img_data = np.stack(sized).transpose(0, 3, 1, 2)
+    return img_data.astype('float32')
+
 def super_resolution_GAN(event, context):
-    """Classify image using api.
 
-    Function is called from this template python: handler.py
-
-    Args:
-        event: Dictionary containing API inputs 
-        context: Dictionary
-
-    Returns:
-        dictionary: API response
-
-    Raises:
-        Exception: Returning API repsonse 500
-    """
     try:
         content_type_header = event['headers']['content-type']
         # print(event['body'])
