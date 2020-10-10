@@ -70,8 +70,8 @@ functions:
     timeout: 60
     events:
       - http:
-          path: GAN
-          method: get
+          path: srGan
+          method: post
           cors: true
 
 plugins:
