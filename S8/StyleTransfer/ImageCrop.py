@@ -36,8 +36,8 @@ def cropeImage(image1, image2):
 	else:
 		pass
 	print("img1 ", img1.shape)
-	print("img2 ", img2.shape)
-	return img1, img2
+    print("img2 ", img2.shape)
+    return img1, img2
 
 
 #img1 = cv2.imread("mn.jpg")
