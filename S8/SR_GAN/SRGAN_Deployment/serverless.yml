@@ -23,14 +23,6 @@ provider:
       binaryMediaTypes:
           - '*/*'
           - multipart/form-data
-  environment:
-    S3_BUCKET: roshantac-bucket1
-    MODEL_PATH: SRGAN.onnx
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - s3:getObject
-      Resource: arn:aws:s3:::roshantac-bucket1/*
 
 custom:
   pythonRequirements:

@@ -59,7 +59,7 @@
     "human_pose": "https://ppcgpv4fq8.execute-api.ap-south-1.amazonaws.com/dev/humanPose",
     "gan": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
     "vae": "https://4p5t092168.execute-api.ap-south-1.amazonaws.com/dev/VAE",
-    "srgan": "/",
+    "srgan": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/srGan",
   };
 
   // Utils
