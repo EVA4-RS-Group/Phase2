@@ -16,11 +16,14 @@
 - Website results
     - <img src="results/website_results1.png" alt="Set1" height="300"/><img src="results/website_results2.png" alt="set2" height="300"/>
 - Colab results
+
     **Low Resolution image **
     - <img src="results/LR_img.png" alt="Low resolution image input" height="300"/>
+    
     **High Resolution image**
     - <img src="results/HR_image.png" alt="High Resolution image" height="300"/>
-        **Fake High Resolution image**
+    
+     **Fake High Resolution image**
     - <img src="results/fakeHR_img.png" alt="Fake High Resolution image" height="300"/>
 
 
