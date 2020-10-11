@@ -250,7 +250,7 @@
     });
   })
 
-    $("#srGAN").click(function(){
+  $("#srGAN").click(function(){
     var documentData = new FormData();
     $.each($('input#getFile')[0].files,function(i, file){
       documentData.append("files["+i+"]", file)
@@ -272,6 +272,7 @@
       }
     });
   })
+
   // Display error messages.
   function onError(error) {
     alert(error.responseText);
