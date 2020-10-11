@@ -26,6 +26,7 @@
     
      **Fake High Resolution image**
     - <img src="results/fakeHR_img.png" alt="Fake High Resolution image" height="300"/>
+    
  **On Text image**
  
     **Low Resolution image**
