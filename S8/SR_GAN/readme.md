@@ -16,8 +16,9 @@
 - Website results
     - <img src="results/website_results1.png" alt="Set1" height="300"/><img src="results/website_results2.png" alt="set2" height="300"/>
 - Colab results
+ #### **Sample image and output**
 
-    **Low Resolution image **
+    **Low Resolution image**
     - <img src="results/LR_img.png" alt="Low resolution image input" height="300"/>
     
     **High Resolution image**
@@ -25,6 +26,17 @@
     
      **Fake High Resolution image**
     - <img src="results/fakeHR_img.png" alt="Fake High Resolution image" height="300"/>
+    
+ #### **On Text image**
+ 
+    **Low Resolution image**
+    - <img src="results/LR_img2.png" alt="Low resolution image input" height="300"/>
+    
+    **High Resolution image**
+    - <img src="results/HR_image2.png" alt="High Resolution image" height="300"/>
+    
+     **Fake High Resolution image**
+    - <img src="results/fakeHR_img2.png" alt="Fake High Resolution image" height="300"/>
 
 
 ### **Image Super Resolution**
