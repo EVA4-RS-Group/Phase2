@@ -2,7 +2,7 @@ Title: Week8 Super Resolution GAN
 date: 2020-10-10
 Javascripts: main.js
 
-The task is to estimate human pose on a image using ONNX runtime.
+The task is to Generate a Highresolution image using ONNX runtime.
 
   <section>
     <div class="row gtr-uniform">
