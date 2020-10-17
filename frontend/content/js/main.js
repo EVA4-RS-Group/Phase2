@@ -60,6 +60,7 @@
     "gan": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
     "vae": "https://4p5t092168.execute-api.ap-south-1.amazonaws.com/dev/VAE",
     "srgan": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/srGan",
+    "style_transfer": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
   };
 
   // Utils
@@ -127,6 +128,29 @@
     });
     $.ajax({
       url: url["face_swap"],
+      type: 'POST',
+      data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
+
+  $("#styleTransfer").click(function(){
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
+    $.ajax({
+      url: url["style_transfer"],
       type: 'POST',
       data: documentData,
       async: false,
