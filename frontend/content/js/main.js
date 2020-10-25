@@ -60,7 +60,11 @@
     "gan": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
     "vae": "https://4p5t092168.execute-api.ap-south-1.amazonaws.com/dev/VAE",
     "srgan": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/srGan",
+<<<<<<< HEAD
+    "sentiment": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/sentiment",
+=======
     "style_transfer": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
+>>>>>>> ba1baf52d09cac08e4fa489fc77b0bcb9f40e3e1
   };
 
   // Utils
@@ -297,6 +301,28 @@
     });
   })
 
+  $("#sentimentalanalysis").click(function(){
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
+    $.ajax({
+      url: url["sentiment"],
+      type: 'POST',
+      data: documentData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
   // Display error messages.
   function onError(error) {
     alert(error.responseText);
