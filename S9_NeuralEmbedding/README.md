@@ -1,4 +1,4 @@
-# Session 6 - Generative Adversarial Network
+# Session 6 - Neural Embedding
 
 
 ## 1. Executive Summary
