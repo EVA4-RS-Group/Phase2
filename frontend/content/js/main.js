@@ -60,11 +60,8 @@
     "gan": "https://hc77zhfgcg.execute-api.ap-south-1.amazonaws.com/dev/GAN",
     "vae": "https://4p5t092168.execute-api.ap-south-1.amazonaws.com/dev/VAE",
     "srgan": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/srGan",
-<<<<<<< HEAD
-    "sentiment": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/sentiment",
-=======
     "style_transfer": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
->>>>>>> ba1baf52d09cac08e4fa489fc77b0bcb9f40e3e1
+    "sentiment": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/sentiment",
   };
 
   // Utils
