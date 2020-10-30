@@ -1,4 +1,4 @@
-# Session 6 - Neural Embedding
+# Session 9 - Neural Embedding
 
 
 ## 1. Executive Summary
@@ -47,7 +47,8 @@
 
 ## 3. References
 
-1. [R1GAN, GAN with R1 Regularizer](https://github.com/Yangyangii/GAN-Tutorial/blob/master/CelebA/R1GAN.ipynb)
-2. [DCGAN, Deep Convolutional GANs](https://github.com/Yangyangii/GAN-Tutorial/blob/master/CARS/DCGAN.ipynb)
-3. [EVA4 Phase2 Session6, Generative Adversarial Network](https://theschoolof.ai/)
-4. [SuperResolution to ONNX](https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html)
+1. [PyTorch Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis)
+2. [Save and Load Machine Learning Models in Python with scikit-learn](https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/)
+3. [How to Speed up AWS Lambda deployment on Serverless Framework by leveraging Lambda Layers.](https://gaurav4664.medium.com/how-to-speed-up-aws-lambda-deployment-on-serverless-framework-by-leveraging-lambda-layers-623f7c742af4)
+4. [EVA4 Phase2 Session9, Neural Embedding](https://theschoolof.ai/)
+

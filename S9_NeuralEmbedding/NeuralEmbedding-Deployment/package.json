@@ -1,9 +1,13 @@
 {
-  "name": "neuralembedding-deployment",
+  "name": "neural-embedding-deployment",
   "description": "",
   "version": "0.1.0",
   "dependencies": {},
+  "scripts": {
+    "deploy": "serverless deploy"
+  },
   "devDependencies": {
+    "serverless": "^1.82.0",
     "serverless-python-requirements": "^5.1.0"
   }
 }
