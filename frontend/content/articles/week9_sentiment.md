@@ -1,4 +1,4 @@
-Title: Week9 Sentimental Analysis
+Title: Week9 Sentiment Analysis
 date: 2020-10-21
 Javascripts: main.js
 
