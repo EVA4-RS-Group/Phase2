@@ -44,8 +44,9 @@
 
 * 6 - [Transformers for Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/6%20-%20Transformers%20for%20Sentiment%20Analysis.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bentrevett/pytorch-sentiment-analysis/blob/master/6%20-%20Transformers%20for%20Sentiment%20Analysis.ipynb)
 
-* 7 - Deployment [handler.py](GAN-Deployment/handler.py) and [serverless.yml](GAN-Deployment/serverless.yml)
+* 7 - Deployment [handler.py](NeuralEmbedding-Deployment/handler.py) and [serverless.yml](NeuralEmbedding-Deployment/serverless.yml)
     - Using serverless, python-plugin-requirements
+
 
 
 ## 3. References
