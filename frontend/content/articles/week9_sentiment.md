@@ -9,6 +9,8 @@ The task is to perform sentimental analysis over giver text data.
     <div class="row gtr-uniform">
       <div class="col-3 col-12-xsmall">
         <ul class="actions">
+          <li><p>Enter your movie review comments:</p>
+          </li>
           <li>
             <textarea id="getText" name="getText" rows="2" cols="300">Enter the text here.</textarea>
           </li>
