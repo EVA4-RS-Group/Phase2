@@ -13,10 +13,9 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-    - <img src="results/website_snapshot_1.png" alt="Set1" height="300"/><img src="results/website_snapshot_2.png" alt="set2" height="300"/>
+    - <img src="results/website_snapshot_1.png" alt="Set1" height="250"/><img src="results/website_snapshot_2.png" alt="set2" height="250"/>
 - Colab results
-    - <img src="results/website_snapshot_1.png" alt="Set1" height="300"/><img src="website_snapshot_2.png" alt="Set2" height="300"/>
-
+    - <img src="results/colab_snapshot.png" alt="Set1" height="300"/>
 
 ### **Key Highlights**
 - Dataset curation & Preprocessing - [raw images](https://drive.google.com/drive/folders/1nskvo2QBLbtvIrXdoZeE5hRFp1WPNs3N?usp=sharing),  [processed images](https://github.com/EVA4-RS-Group/Phase2/releases/download/S6/processed_images_step4a.zip) and [EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb](Training/EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb)
