@@ -15,32 +15,40 @@
 - Website results
     - <img src="results/website_snapshot_1.png" alt="Set1" height="250"/><img src="results/website_snapshot_2.png" alt="set2" height="250"/>
 - Colab results
-    - <img src="results/colab_snapshot.png" alt="Set1" height="300"/>
+    - <img src="results/colab_snapshot.png" alt="Set1" height="400"/>
 
 ### **Key Highlights**
-- Dataset curation & Preprocessing - [raw images](https://drive.google.com/drive/folders/1nskvo2QBLbtvIrXdoZeE5hRFp1WPNs3N?usp=sharing),  [processed images](https://github.com/EVA4-RS-Group/Phase2/releases/download/S6/processed_images_step4a.zip) and [EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb](Training/EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb)
-- Training based on R1GAN Network[EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb)
-    - Updated the network to process 128x128 pixel instead of 64x64 pixels.
-- Model Conversion & Inferencing[EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb)
-- Deployment in AWS Lambda using serverless and ONNX run time 
+- Training
+- Deployment in AWS Lambda using serverless.
 
 
 ## 2. Steps (Developer Section)
-- Dataset Curation & Preprocessing - [raw images](https://drive.google.com/drive/folders/1nskvo2QBLbtvIrXdoZeE5hRFp1WPNs3N?usp=sharing) and [processed images](https://github.com/EVA4-RS-Group/Phase2/releases/download/S6/processed_images_step4a.zip)
-    - Downloaded 500+ images from https://www.cleanpng.com/, google and other care re-sale websites eg. cardekho.
-    - Downloading criteria to keep the training simple,
-        - White background or blank background
-        - One direction of orientation or can be flipped to get same orientation
-    - Processed images manually to flip the images and removed background for some of the images.
-    - Finally processed all the image to generate 128x128 pixel images by resizing and padding white background. [EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb](Training/EVA4_P2_S6_GenerativeAdversarialNetwork_Data_Preprocessing_v1.ipynb)
-- Training based on R1GAN, Reference #1 [EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_2000_epoches_v1.ipynb)
-    - Updated the Generator and Discriminator for 128x128 pixel with additional layer of convolution
-    - Trained for 2000+ epoches to improve the images generated. Sample images below,
-    - <img src="results/R1GAN_training_results_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results.png" alt="Indian Car image" height="300"/>
-- Converted the model to onnx  [EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb](Training/EVA4_P2_S6_R1GAN_128x128_onnx_v2.ipynb)
-    - <img src="results/R1GAN_training_results_onnx_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results_onnx.png" alt="Indian Car image" height="300"/>
-- Deployment [handler.py](GAN-Deployment/handler.py) and [serverless.yml](GAN-Deployment/serverless.yml)
-    - Using serverless, python-plugin-requirements and onnxruntime
+
+
+* 1 - [Simple Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/1%20-%20Simple%20Sentiment%20Analysis.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bentrevett/pytorch-sentiment-analysis/blob/master/1%20-%20Simple%20Sentiment%20Analysis.ipynb)
+
+    This tutorial covers the workflow of a PyTorch with TorchText project. We'll learn how to: load data, create train/test/validation splits, build a vocabulary, create data iterators, define a model and implement the train/evaluate/test loop. The model will be simple and achieve poor performance, but this will be improved in the subsequent tutorials.
+
+* 2 - [Upgraded Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/2%20-%20Upgraded%20Sentiment%20Analysis.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bentrevett/pytorch-sentiment-analysis/blob/master/2%20-%20Upgraded%20Sentiment%20Analysis.ipynb)
+
+    Now we have the basic workflow covered, this tutorial will focus on improving our results. We'll cover: using packed padded sequences, loading and using pre-trained word embeddings, different optimizers, different RNN architectures, bi-directional RNNs, multi-layer (aka deep) RNNs and regularization.
+
+* 3 - [Faster Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/3%20-%20Faster%20Sentiment%20Analysis.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bentrevett/pytorch-sentiment-analysis/blob/master/3%20-%20Faster%20Sentiment%20Analysis.ipynb)
+
+    After we've covered all the fancy upgrades to RNNs, we'll look at a different approach that does not use RNNs. More specifically, we'll implement the model from [Bag of Tricks for Efficient Text Classification](https://arxiv.org/abs/1607.01759). This simple model achieves comparable performance as the *Upgraded Sentiment Analysis*, but trains much faster.
+
+* 4 - [Convolutional Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/4%20-%20Convolutional%20Sentiment%20Analysis.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bentrevett/pytorch-sentiment-analysis/blob/master/4%20-%20Convolutional%20Sentiment%20Analysis.ipynb)
+
+    Next, we'll cover convolutional neural networks (CNNs) for sentiment analysis. This model will be an implementation of [Convolutional Neural Networks for Sentence Classification](https://arxiv.org/abs/1408.5882).
+
+* 5 - [Multi-class Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/5%20-%20Multi-class%20Sentiment%20Analysis.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bentrevett/pytorch-sentiment-analysis/blob/master/5%20-%20Multi-class%20Sentiment%20Analysis.ipynb)
+    
+    Then we'll cover the case where we have more than 2 classes, as is common in NLP. We'll be using the CNN model from the previous notebook and a new dataset which has 6 classes.
+
+* 6 - [Transformers for Sentiment Analysis](https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/6%20-%20Transformers%20for%20Sentiment%20Analysis.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bentrevett/pytorch-sentiment-analysis/blob/master/6%20-%20Transformers%20for%20Sentiment%20Analysis.ipynb)
+
+* 7 - Deployment [handler.py](GAN-Deployment/handler.py) and [serverless.yml](GAN-Deployment/serverless.yml)
+    - Using serverless, python-plugin-requirements
 
 
 ## 3. References
