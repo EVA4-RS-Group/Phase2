@@ -107,7 +107,9 @@ def neural_embedding(event, context):
         #body = base64.b64decode(event["body"])
         #print('BODY LOADED')
         #print(event)
-        print(json.loads(event['body']))
+        input_text = "This film is terrible"
+        input_text = json.loads(event['body'])["text"]
+        print(json.loads(event['body']),input_text)
         # picture = decoder.MultipartDecoder(body, content_type_header).parts[0]
         # img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
 
@@ -116,7 +118,7 @@ def neural_embedding(event, context):
         # print('INFERENCING SUCCESSFUL, RETURNING IMAGE')
 
         prediction_label = "Negative"
-        input_text = "This film is terrible"
+        
 
         prediction = predict_sentiment_jit(traced_model, input_text)
         prediction_label = "Positive" if prediction > 0.5 else "Negative"
