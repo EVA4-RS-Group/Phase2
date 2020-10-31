@@ -6,17 +6,16 @@
 
 ### **Objectives**:
 
-- Train any GAN to create 100x100 images of Indian Cars.
-- KISS! (Keep it Simple)
-- Move to Lambda and on your site. 
+- Practise the above 6 colab files. 
+- Move anyone to Lambda. 
 
 ### **Results**:
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-    - <img src="results/R1GAN_website_results1.png" alt="Set1" height="300"/><img src="results/R1GAN_website_results2.png" alt="set2" height="300"/>
+    - <img src="results/website_snapshot_1.png" alt="Set1" height="300"/><img src="results/website_snapshot_2.png" alt="set2" height="300"/>
 - Colab results
-    - <img src="results/R1GAN_training_results_collage.png" alt="Indian Car Images generated" height="300"/><img src="results/R1GAN_training_results.png" alt="Indian Car image" height="300"/>
+    - <img src="results/website_snapshot_1.png" alt="Set1" height="300"/><img src="website_snapshot_2.png" alt="Set2" height="300"/>
 
 
 ### **Key Highlights**
