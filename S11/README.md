@@ -1,4 +1,4 @@
-# Session 9 - Neural Embedding
+# Session 11 - GRU, Attention Mechanism & Transformers: Attention is all you need!
 
 
 ## 1. Executive Summary
@@ -6,8 +6,8 @@
 
 ### **Objectives**:
 
-- Practise the above 6 colab files. 
-- Move anyone to Lambda. 
+- Look at this file 
+- Re-implement this and move to lambda. Provide the option to provide German text and get English text back. 
 
 ### **Results**:
 
