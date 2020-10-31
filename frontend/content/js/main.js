@@ -298,7 +298,7 @@
     });
   })
 
-  $("#sentimentalanalysis").click(function(){
+  $("#sentiment").click(function(){
     var documentData = new FormData();
     $.each($('input#getFile')[0].files,function(i, file){
       documentData.append("files["+i+"]", file)
@@ -313,7 +313,7 @@
       processData: false,
       timeout:5000,
       success: function (response) {
-          $("#file0").attr('src', 'data:image/png;base64,'+ response["file0"][1])
+          $("#imgClass").text(response.predicted)
       },
       error: function(e) {
         alert(e.statusText)
