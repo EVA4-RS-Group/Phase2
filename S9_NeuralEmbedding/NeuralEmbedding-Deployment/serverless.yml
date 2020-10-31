@@ -19,10 +19,6 @@ provider:
   stage: dev
   region: ap-south-1
   timeout: 60
-  apiGateway:
-      binaryMediaTypes:
-          - '*/*'
-          - multipart/form-data
   environment:
     S3_BUCKET: tsai-assignment-models-s9
     MODEL_PATH: tut3-model_cpu.pt

@@ -299,17 +299,15 @@
   })
 
   $("#sentiment").click(function(){
-    var documentData = new FormData();
-    $.each($('input#getFile')[0].files,function(i, file){
-      documentData.append("files["+i+"]", file)
-    });
+    var inputtext = {text: $(getText).val()}
     $.ajax({
       url: url["sentiment"],
       type: 'POST',
-      data: documentData,
+      datatype:'json',
+      data: JSON.stringify(inputtext),
       async: false,
       cache: false,
-      contentType: false,
+      contentType: 'application/json',
       processData: false,
       timeout:5000,
       success: function (response) {
