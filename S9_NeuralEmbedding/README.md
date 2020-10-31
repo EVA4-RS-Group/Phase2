@@ -15,11 +15,8 @@
 - Website results
     - <img src="results/website_snapshot_1.png" alt="Set1" height="250"/><img src="results/website_snapshot_2.png" alt="set2" height="250"/>
 - Colab results
-    - <img src="results/colab_snapshot.png" alt="Set1" height="400"/>
+    - <img src="results/colab_snapshot.png" alt="Set1" height="500"/>
 
-### **Key Highlights**
-- Training
-- Deployment in AWS Lambda using serverless.
 
 
 ## 2. Steps (Developer Section)
