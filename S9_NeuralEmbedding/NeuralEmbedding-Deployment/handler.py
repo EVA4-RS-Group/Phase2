@@ -102,11 +102,12 @@ def neural_embedding(event, context):
         Exception: Returning API repsonse 500
     """
     try:
-        content_type_header = event['headers']['content-type']
+        #content_type_header = event['headers']['content-type']
         # print(event['body'])
-        body = base64.b64decode(event["body"])
-        print('BODY LOADED')
-
+        #body = base64.b64decode(event["body"])
+        #print('BODY LOADED')
+        #print(event)
+        print(json.loads(event['body']))
         # picture = decoder.MultipartDecoder(body, content_type_header).parts[0]
         # img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
 
