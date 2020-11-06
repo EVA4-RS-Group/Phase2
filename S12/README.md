@@ -1,4 +1,4 @@
-# Session 11 - GRU, Attention Mechanism & Transformers: Attention is all you need!
+# Session 12 - Captioning an Image
 
 
 ## 1. Executive Summary
