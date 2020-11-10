@@ -62,6 +62,7 @@
     "srgan": "https://81vw72pqa6.execute-api.ap-south-1.amazonaws.com/dev/srGan",
     "style_transfer": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
     "sentiment": "https://dy9id5ydvg.execute-api.ap-south-1.amazonaws.com/dev/neural_embedding",
+    "translate": "https://dy9id5ydvg.execute-api.ap-south-1.amazonaws.com/dev/neural_embedding",
   };
 
   // Utils
@@ -318,6 +319,28 @@
       }
     });
   })
+
+  $("#translate").click(function(){
+    var inputtext = {text: $(getText).val()}
+    $.ajax({
+      url: url["translate"],
+      type: 'POST',
+      datatype:'json',
+      data: JSON.stringify(inputtext),
+      async: false,
+      cache: false,
+      contentType: 'application/json',
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#imgClass").text(response.predicted)
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
+
   // Display error messages.
   function onError(error) {
     alert(error.responseText);
