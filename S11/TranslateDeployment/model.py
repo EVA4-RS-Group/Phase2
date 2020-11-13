@@ -252,7 +252,7 @@ def lookup_words(x, vocab=None):
 
 
 def tokenize(string):
-    string = string.strip()
+    string = string.strip().lower()
     lst = ["?","!",".","'s","'t", ","]
     for i in lst:
         string = string.replace(i," "+i)
