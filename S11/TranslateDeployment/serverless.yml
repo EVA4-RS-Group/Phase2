@@ -19,9 +19,6 @@ provider:
   stage: dev
   region: ap-south-1
   timeout: 60
-  credentials:
-    accessKeyId: AKIATNRXBO62N3VZGGXC
-    secretAccessKey: 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
   environment:
     S3_BUCKET: tsai-assignment-models-s11
     MODEL_PATH: de_eng_translation_model.pt
