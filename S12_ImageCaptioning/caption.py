@@ -10,7 +10,7 @@ import argparse
 # from scipy.misc import imresize
 from imageio import imread
 from PIL import Image
-
+from skimage.transform import resize
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -31,11 +31,13 @@ def caption_image_beam_search(encoder, decoder, image_path, word_map, beam_size=
     vocab_size = len(word_map)
 
     # Read image and process
+    # img = Image.open(image_path)
     img = imread(image_path)
+
     if len(img.shape) == 2:
         img = img[:, :, np.newaxis]
         img = np.concatenate([img, img, img], axis=2)
-    img = img.resize((256, 256))
+    img = resize(img, (256, 256))
     img = img.transpose(2, 0, 1)
     img = img / 255.
     img = torch.FloatTensor(img).to(device)
@@ -82,7 +84,7 @@ def caption_image_beam_search(encoder, decoder, image_path, word_map, beam_size=
     while True:
 
         embeddings = decoder.embedding(k_prev_words).squeeze(1)  # (s, embed_dim)
-
+        cfkt=1
         awe, alpha = decoder.attention(encoder_out, h)  # (s, encoder_dim), (s, num_pixels)
 
         alpha = alpha.view(-1, enc_image_size, enc_image_size)  # (s, enc_image_size, enc_image_size)
@@ -108,6 +110,8 @@ def caption_image_beam_search(encoder, decoder, image_path, word_map, beam_size=
         # Convert unrolled indices to actual indices of scores
         prev_word_inds = top_k_words / vocab_size  # (s)
         next_word_inds = top_k_words % vocab_size  # (s)
+        next_word_inds = next_word_inds.long()
+        prev_word_inds = prev_word_inds.long()
 
         # Add new words to sequences, alphas
         seqs = torch.cat([seqs[prev_word_inds], next_word_inds.unsqueeze(1)], dim=1)  # (s, step+1)
@@ -118,6 +122,7 @@ def caption_image_beam_search(encoder, decoder, image_path, word_map, beam_size=
         incomplete_inds = [ind for ind, next_word in enumerate(next_word_inds) if
                            next_word != word_map['<end>']]
         complete_inds = list(set(range(len(next_word_inds))) - set(incomplete_inds))
+        # print(complete_inds)
 
         # Set aside complete sequences
         if len(complete_inds) > 0:
