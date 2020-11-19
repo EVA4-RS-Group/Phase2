@@ -67,7 +67,6 @@
     "imgcap": "https://ydhabqti94.execute-api.ap-south-1.amazonaws.com/dev/imgcap",
   };
 
-  // Utils
 
   function getFileReader(imgId) {
     let reader = new FileReader();

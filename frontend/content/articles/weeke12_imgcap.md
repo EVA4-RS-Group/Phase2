@@ -13,7 +13,7 @@ Caption generation for given image
           <li><input id="getFile" type="file" accept="image/jpg"/></li>
         </ul>
         <ul class="actions">
-          <li><input id="gencap" type="button" value="GenCapt"/></li>
+          <li><input id="gencap" type="button" value="GenerateCaption"/></li>
         </ul>
       </div>
       <div class="col-6 col-12-xsmall">
