@@ -6,6 +6,6 @@ The following are the team members
 
 * Dr. Rajesh Kumar
 * `Ramjee Ganti <https://ramjeeganti.com>`_
-* Roshan
+* `Muhammed Roshan <https://www.linkedin.com/in/roshantac/>`_
 * `Srinivasan G <https://proteans.wordpress.com/>`_
 * Sujit Ojha

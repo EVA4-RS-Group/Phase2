@@ -2,7 +2,8 @@ Title: Week2 Image Captioning
 date: 2020-11-19
 Javascripts: main.js
 
-This will generate caption for given image
+
+Caption generation for given image
 
 
   <section>
@@ -12,7 +13,7 @@ This will generate caption for given image
           <li><input id="getFile" type="file" accept="image/jpg"/></li>
         </ul>
         <ul class="actions">
-          <li><input id="Generate caption" type="button" value="Classify"/></li>
+          <li><input id="gencap" type="button" value="GenCapt"/></li>
         </ul>
       </div>
       <div class="col-6 col-12-xsmall">
