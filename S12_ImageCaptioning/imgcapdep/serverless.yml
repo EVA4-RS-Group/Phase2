@@ -60,9 +60,9 @@ package:
     - model/**
 
 functions:
-  de2en:
+  imgcap:
     handler: handler.imgcap
-    memoreSize: 3008
+    memorySize: 3008
     timeout: 60
     events:
       - http:

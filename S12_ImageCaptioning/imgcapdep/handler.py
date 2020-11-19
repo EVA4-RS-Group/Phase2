@@ -11,7 +11,7 @@ import io
 import json
 import base64
 import numpy as np
-from imageio import imread
+import cv2
 import torch
 from caption import *
 
@@ -19,6 +19,9 @@ from caption import *
 
 print("Importing Packages Done...")
 
+
+word_map_file = 'WORDMAP_flickr8k_5_cap_per_img_5_min_word_freq.json'
+beam_size = 5
 
 # define env bariables if there are not existing
 S3_BUCKET = os.environ['S3_BUCKET'] if 'S3_BUCKET' in os.environ \
@@ -32,17 +35,27 @@ s3 = boto3.client('s3')
 
 try:
     if not os.path.isfile(MODEL_PATH):
-    	DEVICE=torch.device('cpu')
+        DEVICE=torch.device('cpu')
         obj = s3.get_object(Bucket=S3_BUCKET, Key=MODEL_PATH)
         print("Creating Bytestream")
         bytestream = io.BytesIO(obj['Body'].read())
         print("Loading Model")
-        model = make_model(len(SRC_vocab), len(TRG_vocab),
-                   emb_size=256, hidden_size=256,
-                   num_layers=1, dropout=0.2)
+        # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # Load model###################################################
+        checkpoint = torch.load(bytestream, map_location=DEVICE)
+        decoder = checkpoint['decoder']
+        decoder = decoder.to(DEVICE)
+        decoder.eval()
+        encoder = checkpoint['encoder']
+        encoder = encoder.to(DEVICE)
+        encoder.eval()
+        ##########################################
+        # model = make_model(len(SRC_vocab), len(TRG_vocab),
+        #            emb_size=256, hidden_size=256,
+        #            num_layers=1, dropout=0.2)
 
-	model = model.to(DEVICE)
-	model.load_state_dict(torch.load(bytestream, map_location=DEVICE))
+    # model = model.to(DEVICE)
+    # model.load_state_dict(torch.load(bytestream, map_location=DEVICE))
         print("Model Loaded...")
     
 
@@ -62,37 +75,26 @@ headers = {
 }
 
 
-model = 'img_cap_flicker8.pth.tar'
-word_map_file = 'WORDMAP_flickr8k_5_cap_per_img_5_min_word_freq.json'
-beam_size = 5
 
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-# Load model
-checkpoint = torch.load(model, map_location=str(device))
-decoder = checkpoint['decoder']
-decoder = decoder.to(device)
-decoder.eval()
-encoder = checkpoint['encoder']
-encoder = encoder.to(device)
-encoder.eval()
+
 
 
 def genCap(img):
-	# Load word map (word2ix)
-	with open(word_map_file, 'r') as j:
-	    word_map = json.load(j)
-	rev_word_map = {v: k for k, v in word_map.items()}  # ix2word
+    # Load word map (word2ix)
+    with open(word_map_file, 'r') as j:
+        word_map = json.load(j)
+    rev_word_map = {v: k for k, v in word_map.items()}  # ix2word
 
-	# Encode, decode with attention and beam search
-	seq, alphas = caption_image_beam_search(encoder, decoder, img, word_map, beam_size)
-	alphas = torch.FloatTensor(alphas)
-	words = [rev_word_map[ind] for ind in seq]
-	words = words[1:len(words)-1]
-	ret = ' '.join(words)
-	return ret
-	
-	
+    # Encode, decode with attention and beam search
+    seq, alphas = caption_image_beam_search(encoder, decoder, img, word_map, beam_size)
+    alphas = torch.FloatTensor(alphas)
+    words = [rev_word_map[ind] for ind in seq]
+    words = words[1:len(words)-1]
+    ret = ' '.join(words)
+    return ret
+    
+    
 def imgcap(event, context):
     """Classify image using api.
 
@@ -118,9 +120,12 @@ def imgcap(event, context):
         picture = decoder.MultipartDecoder(body, content_type_header).parts[0]
         img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
         output = genCap(img)
+        filename = (picture
+                    .headers[b'Content-Disposition']
+                    .decode().split(';')[1].split('=')[1])
 
-        fields = {'input': input_text,
-                  'predicted': f"English Translation : {output}"}
+        fields = {'file': filename.replace('"', ''),
+                  'predicted': f"Caption : {output}"}
 
         return {"statusCode": 200, "headers": headers, "body": json.dumps(fields)}
 
