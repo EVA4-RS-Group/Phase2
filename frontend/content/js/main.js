@@ -9,6 +9,7 @@
     }
   });
 
+
   $.retryAjax = function (ajaxParams) {
     var errorCallback;
     ajaxParams.tryCount = (!ajaxParams.tryCount) ? 0 : ajaxParams.tryCount;
@@ -341,7 +342,7 @@
       }
     });
   })
-  
+
   $("#gencap").click(function(){
     return classify("imgcap")
   });
