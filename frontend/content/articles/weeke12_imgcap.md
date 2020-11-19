@@ -1,4 +1,4 @@
-Title: Week2 Image Captioning
+Title: Week12 Image Captioning
 date: 2020-11-19
 Javascripts: main.js
 
