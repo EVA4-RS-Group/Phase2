@@ -11,10 +11,9 @@ import io
 import json
 import base64
 import numpy as np
-import cv2
 import torch
 from caption import *
-
+from PIL import Image
 #from requests_toolbelt.multipart import decoder
 
 print("Importing Packages Done...")
@@ -39,9 +38,7 @@ try:
         obj = s3.get_object(Bucket=S3_BUCKET, Key=MODEL_PATH)
         print("Creating Bytestream")
         bytestream = io.BytesIO(obj['Body'].read())
-        print("Loading Model")
-        # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        # Load model###################################################
+ # Load model###################################################
         checkpoint = torch.load(bytestream, map_location=DEVICE)
         decoder = checkpoint['decoder']
         decoder = decoder.to(DEVICE)
@@ -49,13 +46,7 @@ try:
         encoder = checkpoint['encoder']
         encoder = encoder.to(DEVICE)
         encoder.eval()
-        ##########################################
-        # model = make_model(len(SRC_vocab), len(TRG_vocab),
-        #            emb_size=256, hidden_size=256,
-        #            num_layers=1, dropout=0.2)
 
-    # model = model.to(DEVICE)
-    # model.load_state_dict(torch.load(bytestream, map_location=DEVICE))
         print("Model Loaded...")
     
 
@@ -118,7 +109,8 @@ def imgcap(event, context):
         body = base64.b64decode(event["body"])
         print('BODY LOADED')
         picture = decoder.MultipartDecoder(body, content_type_header).parts[0]
-        img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
+        img = Image.open(io.BytesIO(picture.content))
+        # img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
         output = genCap(img)
         filename = (picture
                     .headers[b'Content-Disposition']

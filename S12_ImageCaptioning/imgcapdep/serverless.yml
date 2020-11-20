@@ -19,6 +19,10 @@ provider:
   stage: dev
   region: ap-south-1
   timeout: 60
+  apiGateway:
+      binaryMediaTypes:
+          - '*/*'
+          - multipart/form-data
   environment:
     S3_BUCKET: roshan-eva12
     MODEL_PATH: img_cap_flicker8.pth.tar

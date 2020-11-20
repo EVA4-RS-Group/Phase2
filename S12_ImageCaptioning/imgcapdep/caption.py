@@ -2,29 +2,21 @@ import torch
 import torch.nn.functional as F
 import json
 import torchvision.transforms as transforms
-import cv2
 import numpy as np
-
-
+from PIL import Image
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 
 def caption_image_beam_search(encoder, decoder, img, word_map, beam_size=3):
     k = beam_size
     vocab_size = len(word_map)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    if len(img.shape) == 2:
-        img = img[:, :, np.newaxis]
-        img = np.concatenate([img, img, img], axis=2)
-    img = cv2.resize(img, (256, 256)) #resize(img, (256, 256))
-    img = img.transpose(2, 0, 1)
-    img = img / 255.
-    img = torch.FloatTensor(img).to(device)
-    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                     std=[0.229, 0.224, 0.225])
-    transform = transforms.Compose([normalize])
-    image = transform(img)  # (3, 256, 256)
+    transformations = transforms.Compose([
+            transforms.Resize(256),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+        ])
+    image = transformations(img)#transform(img)  # (3, 256, 256)
 
     # Encode
     image = image.unsqueeze(0)  # (1, 3, 256, 256)
