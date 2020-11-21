@@ -64,7 +64,7 @@
     "style_transfer": "https://gh1xz0gzpj.execute-api.ap-south-1.amazonaws.com/dev/face_swap",
     "sentiment": "https://dy9id5ydvg.execute-api.ap-south-1.amazonaws.com/dev/neural_embedding",
     "translate": "https://zjlnkzpy59.execute-api.ap-south-1.amazonaws.com/dev/de2en",
-    "imgcap": "https://ydhabqti94.execute-api.ap-south-1.amazonaws.com/dev/imgcap",
+    "imgcap": "https://tniwzbag8c.execute-api.ap-south-1.amazonaws.com/dev/imgcap",
   };
 
 
