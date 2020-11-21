@@ -14,7 +14,7 @@ import numpy as np
 import torch
 from caption import *
 from PIL import Image
-#from requests_toolbelt.multipart import decoder
+from requests_toolbelt.multipart import decoder as dec
 
 print("Importing Packages Done...")
 
@@ -108,7 +108,7 @@ def imgcap(event, context):
         # print(event['body'])
         body = base64.b64decode(event["body"])
         print('BODY LOADED')
-        picture = decoder.MultipartDecoder(body, content_type_header).parts[0]
+        picture = dec.MultipartDecoder(body, content_type_header).parts[0]
         img = Image.open(io.BytesIO(picture.content))
         # img = cv2.imdecode(np.frombuffer(picture.content, np.uint8), -1)
         output = genCap(img)

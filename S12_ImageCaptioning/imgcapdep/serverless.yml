@@ -24,13 +24,13 @@ provider:
           - '*/*'
           - multipart/form-data
   environment:
-    S3_BUCKET: roshan-eva12
+    S3_BUCKET: tsai-assignment-models-s12
     MODEL_PATH: img_cap_flicker8.pth.tar
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - s3:getObject
-      Resource: arn:aws:s3:::roshan-eva12/*
+      Resource: arn:aws:s3:::tsai-assignment-models-s12/*
 
 custom:
   pythonRequirements:
