@@ -1,80 +1,23 @@
-This is a **[PyTorch](https://pytorch.org) Tutorial to Image Captioning**.
+# Session 12 - GRU, Attention Mechanism & Transformers: Attention is all you need!
 
-This is the first in [a series of tutorials](https://github.com/sgrvinod/Deep-Tutorials-for-PyTorch) I'm writing about _implementing_ cool models on your own with the amazing PyTorch library.
 
-Basic knowledge of PyTorch, convolutional and recurrent neural networks is assumed.
+## 1. Executive Summary
+**Group Members:** *Ramjee Ganti, Srinivasan G, Roshan, Dr. Rajesh and Sujit Ojha*
 
-If you're new to PyTorch, first read [Deep Learning with PyTorch: A 60 Minute Blitz](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html) and [Learning PyTorch with Examples](https://pytorch.org/tutorials/beginner/pytorch_with_examples.html).
+### **Objectives**:
 
-Questions, suggestions, or corrections can be posted as issues.
+- Go through this [great tutorial](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning) on Image Captioning. Train your own model and upload to Lambda. 
 
-I'm using `PyTorch 0.4` in `Python 3.6`.
+If you are very interested in this topic, then refer [this repo](https://github.com/ruotianluo/self-critical.pytorch).
 
----
+### **Results**:
 
-**27 Jan 2020**: Working code for two new tutorials has been added — [Super-Resolution](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Super-Resolution) and [Machine Translation](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Machine-Translation)
+- Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
+- Website results
+    - <img src="results/website_snapshot_1.png" alt="Set1" height="300"/><img src="results/website_snapshot_2.png" alt="set2" height="300"/>
+- Colab results
+    - <img src="results/colab_snapshot.png" alt="Set1" height="400"/>
 
----
-
-# Contents
-
-[***Objective***](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#objective)
-
-[***Concepts***](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#concepts)
-
-[***Overview***](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#overview)
-
-[***Implementation***](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#implementation)
-
-[***Training***](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#training)
-
-[***Inference***](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#inference)
-
-[***Frequently Asked Questions***](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#faqs)
-
-# Objective
-
-**To build a model that can generate a descriptive caption for an image we provide it.**
-
-In the interest of keeping things simple, let's implement the [_Show, Attend, and Tell_](https://arxiv.org/abs/1502.03044) paper. This is by no means the current state-of-the-art, but is still pretty darn amazing. The authors' original implementation can be found [here](https://github.com/kelvinxu/arctic-captions).
-
-This model learns _where_ to look.
-
-As you generate a caption, word by word, you can see the model's gaze shifting across the image.
-
-This is possible because of its _Attention_ mechanism, which allows it to focus on the part of the image most relevant to the word it is going to utter next.
-
-Here are some captions generated on _test_ images not seen during training or validation:
-
----
-
-![](./img/plane.png)
-
----
-
-![](./img/boats.png)
-
----
-
-![](./img/bikefence.png)
-
----
-
-![](./img/sheep.png)
-
----
-
-![](./img/babycake.png)
-
----
-
-![](./img/dogtie.png)
-
----
-
-There are more examples at the [end of the tutorial](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning#some-more-examples).
-
----
 
 # Concepts
 
@@ -397,107 +340,3 @@ To **caption an image** from the command line, point to the image, model checkpo
 Alternatively, use the functions in the file as needed.
 
 Also see [`eval.py`](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/blob/master/eval.py), which implements this process for calculating the BLEU score on the validation set, with or without Beam Search.
-
-### Some more examples
-
----
-
-![](./img/birds.png)
-
----
-
-![](./img/salad.png)
-
----
-
-![](./img/manbike.png)
-
----
-
-![](./img/catbanana.png)
-
----
-
-![](./img/firehydrant.png)
-
----
-
-**The ~~Turing~~ Tommy Test** – you know AI's not really AI because it hasn't watched _The Room_ and doesn't recognize greatness when it sees it.
-
-![](./img/tommy.png)
-
----
-
-# FAQs
-
-__You said__ ___soft___ __attention. Is there, um, a__ ___hard___ __attention?__
-
-Yes, the _Show, Attend and Tell_ paper uses both variants, and the Decoder with "hard" attention performs marginally better.
-
-In _soft_ attention, which we use here, you're computing the weights `alpha` and using the weighted average of the features across all pixels. This is a deterministic, differentiable operation.
-
-In _hard_ attention, you are choosing to just sample some pixels from a distribution defined by `alpha`. Note that any such probabilistic sampling is non-deterministic or _stochastic_, i.e. a specific input will not always produce the same output. But since gradient descent presupposes that the network is deterministic (and therefore differentiable), the sampling is reworked to remove its stochasticity. My knowledge of this is fairly superficial at this point – I will update this answer when I have a more detailed understanding.
-
----
-
-__How do I use an attention network for an NLP task like a sequence to sequence model?__
-
-Much like you use a CNN to generate an encoding with features at each pixel, you would use an RNN to generate encoded features at each timestep i.e. word position in the input.
-
-Without attention, you would use the Encoder's output at the last timestep as the encoding for the entire sentence, since it would also contain information from prior timesteps. The Encoder's last output now bears the burden of having to encode the entire sentence meaningfully, which is not easy, especially for longer sentences.
-
-With attention, you would attend over the timesteps in the Encoder's output, generating weights for each timestep/word, and take the weighted average to represent the sentence. In a sequence to sequence task like machine translation, you would attend to the relevant words in the input as you generate each word in the output.
-
-You could also use Attention without a Decoder. For example, if you want to classify text, you can attend to the important words in the input just once to perform the classification.
-
----
-
-__Can we use Beam Search during training?__
-
-Not with the current loss function, but [yes](https://arxiv.org/abs/1606.02960). This is not common at all.
-
----
-
-__What is Teacher Forcing?__
-
-Teacher Forcing is when we use the ground truth captions as the input to the Decoder at each timestep, and not the word it generated in the previous timestep. It's common to teacher-force during training since it could mean faster convergence of the model. But it can also learn to depend on being told the correct answer, and exhibit some instability in practice.
-
-It would be ideal to train using Teacher Forcing [only some of the time](https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html#training-the-model), based on a probability. This is called Scheduled Sampling.
-
-(I plan to add the option).
-
----
-
-__Can I use pretrained word embeddings (GloVe, CBOW, skipgram, etc.) instead of learning them from scratch?__
-
-Yes, you could, with the `load_pretrained_embeddings()` method in the `Decoder` class. You could also choose to fine-tune (or not) with the `fine_tune_embeddings()` method.
-
-After creating the Decoder in [`train.py`](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/blob/master/train.py), you should provide the pretrained vectors to `load_pretrained_embeddings()` stacked in the same order as in the `word_map`. For words that you don't have pretrained vectors for, like `<start>`, you can initialize embeddings randomly like we did in `init_weights()`. I recommend fine-tuning to learn more meaningful vectors for these randomly initialized vectors.
-  
-```python
-decoder = DecoderWithAttention(attention_dim=attention_dim,
-                               embed_dim=emb_dim,
-                               decoder_dim=decoder_dim,
-                               vocab_size=len(word_map),
-                               dropout=dropout)
-decoder.load_pretrained_embeddings(pretrained_embeddings)  # pretrained_embeddings should be of dimensions (len(word_map), emb_dim)
-decoder.fine_tune_embeddings(True)  # or False
-```
-  
-Also make sure to change the `emb_dim` parameter from its current value of `512` to the size of your pre-trained embeddings. This should automatically adjust the input size of the decoder LSTM to accomodate them.
-
----
-
-__How do I keep track of which tensors allow gradients to be computed?__
-
-With the release of PyTorch `0.4`, wrapping tensors as `Variable`s is no longer required. Instead, tensors have the `requires_grad` attribute, which decides whether it is tracked by `autograd`, and therefore whether gradients are computed for it during backpropagation.
-
-- By default, when you create a tensor from scratch, `requires_grad` will be set to `False`.
-- When a tensor is created from or modified using another tensor that allows gradients, then `requires_grad` will be set to `True`.
-- Tensors which are parameters of `torch.nn` layers will already have `requires_grad` set to `True`.
-
----
-
-__How do I compute all BLEU (i.e. BLEU-1 to BLEU-4) scores during evaluation?__
-
-You'd need to modify the code in [`eval.py`](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/blob/master/eval.py) to do this. Please see [this excellent answer](<https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/issues/37#issuecomment-455924998>) by [kmario23](<https://github.com/kmario23>) for a clear and detailed explanation.
