@@ -14,37 +14,16 @@ from skimage.transform import resize
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
-def caption_image_beam_search(encoder, decoder, image_path, word_map, beam_size=3):
-    """
-    Reads an image and captions it with beam search.
-
-    :param encoder: encoder model
-    :param decoder: decoder model
-    :param image_path: path to image
-    :param word_map: word map
-    :param beam_size: number of sequences to consider at each decode-step
-    :return: caption, weights for visualization
-    """
-
+def caption_image_beam_search(encoder, decoder, img, word_map, beam_size=3):
     k = beam_size
     vocab_size = len(word_map)
-
-    # Read image and process
-    # img = Image.open(image_path)
-    img = imread(image_path)
-
-    if len(img.shape) == 2:
-        img = img[:, :, np.newaxis]
-        img = np.concatenate([img, img, img], axis=2)
-    img = resize(img, (256, 256))
-    img = img.transpose(2, 0, 1)
-    img = img / 255.
-    img = torch.FloatTensor(img).to(device)
-    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                     std=[0.229, 0.224, 0.225])
-    transform = transforms.Compose([normalize])
-    image = transform(img)  # (3, 256, 256)
+    transformations = transforms.Compose([
+            transforms.Resize(256),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+        ])
+    image = transformations(img)#transform(img)  # (3, 256, 256)
 
     # Encode
     image = image.unsqueeze(0)  # (1, 3, 256, 256)
