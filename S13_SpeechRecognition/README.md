@@ -16,16 +16,23 @@
 - Colab results
     - <img src="results/colab_snapshot.png" alt="Set1" height="400"/>
 
+### **Key Highlights**:
+- Training Model1: "Basic Audio Processing and a Simple Model" [EVA4P2_Session13_Speech_recognition_model1_training_v1.ipynb](EVA4P2_Session13_Speech_recognition_model1_training_v1.ipynb)
+    - Best accuracy Training: 94.51%, Validation: 91.04%, Test: 91.075%
+- Training Model2: "Deep Speech 2" [Building_an_end_to_end_Speech_Recognition_model_in_PyTorch.ipynb](Building_an_end_to_end_Speech_Recognition_model_in_PyTorch.ipynb)
+
 ## 2. AI for Sound
 
 
 
 ## 3. Steps (Developer Section)
 
-- Training & Saving Model [Notebook](EVA4P2_S11_annotated_encoder_decoder_deployment_v2.ipynb)
-    - Based on Ref #1: [The Annotated Encoder Decoder](https://bastings.github.io/annotated_encoder_decoder/)
-- Deployment [Notebook](EVA4P2_S11_annotated_encoder_decoder.ipynb), [handler.py](NeuralEmbedding-Deployment/handler.py) and [serverless.yml](NeuralEmbedding-Deployment/serverless.yml)
+**MODEL1**
+- Training [Notebook](EVA4P2_Session13_Speech_recognition_model1_training_v1.ipynb)
+- Deployment [Notebook](EVA4P2_Session13_Speech_recognition_model1_inference_v1a.ipynb), [handler.py](NeuralEmbedding-Deployment/handler.py) and [serverless.yml](NeuralEmbedding-Deployment/serverless.yml)
     - Using serverless, python-plugin-requirements
+
+**MODEL2**
 
 ## 4. References
 
