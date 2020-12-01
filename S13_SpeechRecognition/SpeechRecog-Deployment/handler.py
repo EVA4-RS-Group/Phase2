@@ -11,70 +11,36 @@ import io
 import json
 import base64
 import numpy as np
+import torch
+import torch.nn.functional as F
+import torchaudio
+import random
+import glob
 
+sample_file_list = list(glob.iglob('/sample_test_data/*.wav', recursive=True))
 
-#from requests_toolbelt.multipart import decoder
+class SpeechRNN(torch.nn.Module):
+  
+  def __init__(self):
+    super(SpeechRNN, self).__init__()
+    
+    self.lstm = torch.nn.GRU(input_size = 12, 
+                              hidden_size= 256, 
+                              num_layers = 2, 
+                              batch_first=True)
+    
+    self.out_layer = torch.nn.Linear(256, 30)
+    self.softmax = torch.nn.LogSoftmax(dim=1)
+    
+  def forward(self, x):
+    out, _ = self.lstm(x)
+    x = self.out_layer(out[:,-1,:])
+    return self.softmax(x)
 
-print("Importing Packages Done...")
-
-
-# define env bariables if there are not existing
-S3_BUCKET = os.environ['S3_BUCKET'] if 'S3_BUCKET' in os.environ \
-    else 'tsai-assignment-models-s11'
-MODEL_PATH = os.environ['MODEL_PATH'] if 'MODEL_PATH' in os.environ \
-    else 'de_eng_translation_model'
-
-with open('SRC_vocab.pickle', 'rb') as handle:
-    SRC_vocab = pickle.load(handle)
-
-with open('TRG_vocab.pickle', 'rb') as handle:
-    TRG_vocab = pickle.load(handle)
-
-print('Downloading model...')
-
-s3 = boto3.client('s3')
-
-try:
-    if not os.path.isfile(MODEL_PATH):
-        DEVICE=torch.device('cpu')
-        obj = s3.get_object(Bucket=S3_BUCKET, Key=MODEL_PATH)
-        print("Creating Bytestream")
-        bytestream = io.BytesIO(obj['Body'].read())
-        print("Loading Model")
-        model = make_model(len(SRC_vocab), len(TRG_vocab),
-                   emb_size=256, hidden_size=256,
-                   num_layers=1, dropout=0.2)
-
-    model = model.to(DEVICE)
-    model.load_state_dict(torch.load(bytestream, map_location=DEVICE))
-    print("Model Loaded...")
-
-except Exception as e:
-    print(repr(e))
-    raise(e)
-
-SOS_TOKEN = "<s>"
-EOS_TOKEN = "</s>"
-def translate(src): 
-  tokenized = tokenize(src)#[tok.text for tok in spacy_de.tokenizer(src)]
-  tokenized.append("</s>")
-  # print(tokenized)
-  indexed = [[SRC_vocab.stoi[t] for t in tokenized]]
-  srcpr = [lookup_words(x, SRC_vocab) for x in indexed]
-  # print("German : ",[" ".join(y) for y in srcpr][0])
-  srcs = torch.LongTensor(indexed).to(DEVICE)
-  length = torch.LongTensor([len(indexed[0])]).to(DEVICE)
-  mask = (srcs != 0).unsqueeze(-2).to(DEVICE)
-  # print(srcs)
-  # print(mask)
-  # print(length)
-  pred, attention = greedy_decode(
-    model, srcs, mask, length, max_len=25,
-    sos_index=TRG_vocab.stoi[SOS_TOKEN],
-    eos_index=TRG_vocab.stoi[EOS_TOKEN])
-  # print(pred)
-  english = lookup_words(pred, TRG_vocab)
-  return  " ".join(english)
+classes = ['cat', 'dog', 'six', 'bird', 'eight', 'no', 'tree', 'marvin', 'left',
+           'down', 'off', 'on', 'five', 'three', 'go', 'seven', 'sheila', 
+           'right', 'four', 'happy', 'bed', 'zero', 'one', 'wow', 'two', 'yes',
+           'house', 'up', 'nine', 'stop']
 
 
 
@@ -103,14 +69,31 @@ def de2en(event, context):
     
     try:
 
-        input_text = "mein vater hörte sich auf seinem kleinen"
-        input_text = json.loads(event['body'])["text"]
-        print(json.loads(event['body']),input_text)
+        DEVICE=torch.device('cpu')
+        model = SpeechRNN()
+        model = model.to(DEVICE)
+        model.load_state_dict(torch.load('weights_cpu_voicerec.pt', map_location=DEVICE))
 
-        output = translate(input_text)
+        wav_file = random.choice(sample_file_list)
+        waveform,_ = torchaudio.load(wav_file, normalization=True)
+            
+        # if the waveform is too short (less than 1 second) we pad it with zeroes
+        if waveform.shape[1] < 16000:
+            waveform = F.pad(input=waveform, pad=(0, 16000 - waveform.shape[1]), mode='constant', value=0)
+                            
+        mfcc_transform = torchaudio.transforms.MFCC(n_mfcc=12, log_mels=True)
+        mfcc = mfcc_transform(waveform).squeeze(0).transpose(0,1)
+        x = mfcc.unsqueeze(0)
+
+        model.eval()
+        y = model(x)
+        predicted_label = classes[y.max(1)[1].numpy().item()]
+
+        input_text = wav_file.split("/")[-1]
+        output = f'Prediction of input file {wav_file.split("/")[-1]} is {predicted_label}.'
 
         fields = {'input': input_text,
-                  'predicted': f"English Translation : {output}"}
+                  'predicted': output}
 
         return {"statusCode": 200, "headers": headers, "body": json.dumps(fields)}
 
