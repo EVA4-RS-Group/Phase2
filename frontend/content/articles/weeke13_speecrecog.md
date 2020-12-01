@@ -13,7 +13,7 @@ Detecting Speech commands like ['cat', 'dog', 'six', 'bird', 'eight', 'no', 'tre
           <li><input id="getFile" type="file" accept="audio/wav"/></li>
         </ul>
         <ul class="actions">
-          <li><input id="srecog" type="button" value="SpeechRecog"/></li>
+          <li><input id="srecog" type="button" value="Speech Recog"/></li>
         </ul>
       </div>
       <div class="col-6 col-12-xsmall">
