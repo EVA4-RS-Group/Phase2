@@ -19,6 +19,10 @@ provider:
   stage: dev
   region: ap-south-1
   timeout: 60
+  apiGateway:
+      binaryMediaTypes:
+          - '*/*'
+          - multipart/form-data
 
 custom:
   pythonRequirements:
