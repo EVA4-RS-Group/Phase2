@@ -17,7 +17,7 @@ import torchaudio
 import random
 import glob
 
-sample_file_list = list(glob.iglob('/sample_test_data/*.wav', recursive=True))
+sample_file_list = list(glob.iglob('./sample_test_data/*.wav', recursive=True))
 
 class SpeechRNN(torch.nn.Module):
   
