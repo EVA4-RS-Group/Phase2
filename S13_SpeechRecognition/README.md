@@ -12,9 +12,9 @@
 
 - Team hosted static website : http://rsgroup.s3-website.ap-south-1.amazonaws.com/
 - Website results
-    - <img src="results/website_snapshot_1.png" alt="Set1" height="300"/><img src="results/website_snapshot_2.png" alt="set2" height="300"/>
+    - <img src="results/website_snapshot_1.png" alt="Set1" height="350"/><img src="results/website_snapshot_2.png" alt="set2" height="350"/>
 - Colab results
-    - <img src="results/colab_snapshot.png" alt="Set1" height="400"/>
+    - <img src="results/colab_snapshot.png" alt="Set1" height="350"/>
 
 ### **Key Highlights**:
 - Training Model1: "Basic Audio Processing and a Simple Model" [EVA4P2_Session13_Speech_recognition_model1_training_v1.ipynb](EVA4P2_Session13_Speech_recognition_model1_training_v1.ipynb)
