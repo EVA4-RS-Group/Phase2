@@ -33,6 +33,7 @@
     - Using serverless, python-plugin-requirements
 
 **MODEL2**
+- Training [Notebook](Building_an_end_to_end_Speech_Recognition_model_in_PyTorch.ipynb)
 
 ## 4. References
 
