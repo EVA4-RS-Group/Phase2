@@ -344,19 +344,21 @@
   })
 
   $("#srecog").click(function(){
-    var inputtext = {text: "Dummy Text"}
+    var documentData = new FormData();
+    $.each($('input#getFile')[0].files,function(i, file){
+      documentData.append("files["+i+"]", file)
+    });
     $.ajax({
       url: url["srecog"],
       type: 'POST',
-      datatype:'json',
-      data: JSON.stringify(inputtext),
+      data: documentData,
       async: false,
       cache: false,
-      contentType: 'application/json',
+      contentType: false,
       processData: false,
       timeout:5000,
       success: function (response) {
-          $("#imgClass").text(response.predicted)
+        $("#imgClass").text(response.predicted)
       },
       error: function(e) {
         alert(e.statusText)
