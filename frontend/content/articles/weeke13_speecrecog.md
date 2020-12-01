@@ -18,7 +18,7 @@ Detecting Speech commands like ['cat', 'dog', 'six', 'bird', 'eight', 'no', 'tre
       </div>
       <div class="col-6 col-12-xsmall">
         <span class="image fit">
-          <img id="upImage" src="https://icons.iconarchive.com/icons/alecive/flatwoken/512/Apps-Player-Audio-icon.png" alt="">
+          <img id="upImage" src="https://icons.iconarchive.com/icons/alecive/flatwoken/512/Apps-Player-Audio-icon.png" alt="" height=300>
         </span>
         <h3 id="imgClass" style="text-align:center" ></h3>
       </div>
