@@ -37,10 +37,10 @@ class SpeechRNN(torch.nn.Module):
     x = self.out_layer(out[:,-1,:])
     return self.softmax(x)
 
-classes = ['cat', 'dog', 'six', 'bird', 'eight', 'no', 'tree', 'marvin', 'left',
-           'down', 'off', 'on', 'five', 'three', 'go', 'seven', 'sheila', 
-           'right', 'four', 'happy', 'bed', 'zero', 'one', 'wow', 'two', 'yes',
-           'house', 'up', 'nine', 'stop']
+classes = ['right', 'left', 'go', 'on', 'one', 'zero', 'marvin', 'five', 
+           'happy', 'bed', 'two', 'nine', 'yes', 'six', 'eight', 'sheila', 
+           'wow', 'up', 'down', 'seven', 'dog', 'stop', 'tree', 'cat', 'four',
+           'house', 'three', 'no', 'bird', 'off']
 
 
 
