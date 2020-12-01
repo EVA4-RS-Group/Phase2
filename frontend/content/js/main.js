@@ -65,6 +65,7 @@
     "sentiment": "https://dy9id5ydvg.execute-api.ap-south-1.amazonaws.com/dev/neural_embedding",
     "translate": "https://zjlnkzpy59.execute-api.ap-south-1.amazonaws.com/dev/de2en",
     "imgcap": "https://tniwzbag8c.execute-api.ap-south-1.amazonaws.com/dev/imgcap",
+    "srecog": "https://dyeocvpztj.execute-api.ap-south-1.amazonaws.com/dev/speech_recog",
   };
 
 
@@ -325,6 +326,27 @@
     var inputtext = {text: $(getText).val()}
     $.ajax({
       url: url["translate"],
+      type: 'POST',
+      datatype:'json',
+      data: JSON.stringify(inputtext),
+      async: false,
+      cache: false,
+      contentType: 'application/json',
+      processData: false,
+      timeout:5000,
+      success: function (response) {
+          $("#imgClass").text(response.predicted)
+      },
+      error: function(e) {
+        alert(e.statusText)
+      }
+    });
+  })
+
+  $("#srecog").click(function(){
+    var inputtext = {text: "Dummy Text"}
+    $.ajax({
+      url: url["srecog"],
       type: 'POST',
       datatype:'json',
       data: JSON.stringify(inputtext),
