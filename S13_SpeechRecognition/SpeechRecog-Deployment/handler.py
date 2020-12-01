@@ -50,7 +50,7 @@ headers = {
     "Access-Control-Allow-Credentials": True,
 }
 
-def de2en(event, context):
+def speech_recog(event, context):
     """Classify image using api.
 
     Function is called from this template python: handler.py
