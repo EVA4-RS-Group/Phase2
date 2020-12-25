@@ -7,6 +7,7 @@
 ### **Objectives**:
 
 Develop a [lobe.ai](https://lobe.ai/) clone:
+
     1. allow people to upload their own data:
         a. Images (10x2 - 80:20) upto (100*10 - 70-30)
         b. text samples (csv files) (min 100 - max 1000)*2-3 - 70:30)
